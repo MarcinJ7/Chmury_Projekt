@@ -22,8 +22,9 @@ Ewentualnym rozszerzeniem aplikacji będzie użycie Azure Cognitive Services (z 
 
 ## Diagram przypadków użycia
 
-<do wstawienia>
+![Image](images/UML.png)
 
+Jest to robocza wersja diagramu UML. Nie dodawałem administratora gdyż wykorzystywałby on dokładnie te same funkcjonalności co użytkownik. Jeżeli są jakieś sugestie, to piszcie i będę na bieżąco aktualizował diagram. 
 
 ## Model sieci neuronowej
 
