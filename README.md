@@ -15,7 +15,7 @@ Autorzy:
 
 ![Image](images/architektura.png)
 
-Użytkownik loguje się na stronę poprzez Azure Active Directory za pomocą konta Microsoft lub Google. Na stronie można wgrać zdjęcie, które jest wysyłane przez API Management do Azure Function App. Tam zdjęcie jest poddawane obróbce, która polega na wycięciu fragmentu zdjęcia, w którym znajduje się twarz (i ewentualne zgłoszenie błedu, jeśli na zdjęciu nie ma człowieka). Wycięta twarz wysyłana jest do Azure Machine Learning Services, gdzie przekazywana jest na wejście modelu sieci neuronowej. Zwracanym wynikiem jest wiek osoby, który jest wyświetlany na stronie internetowej użytkownikowi, który to zdjęcie wysłał. Azure Blob Storage przechowuje cały dataset (chyba, że model nie będzie douczany), a baza Cosmos DB przechowuje model sieci neuronowej.
+Użytkownik loguje się na stronę poprzez Azure Active Directory za pomocą konta Microsoft lub Google. Na stronie można wgrać zdjęcie, które jest wysyłane przez API Management do Azure Function App. Tam zdjęcie jest poddawane obróbce, która polega na wycięciu fragmentu zdjęcia, w którym znajduje się twarz (i ewentualne zgłoszenie błedu, jeśli na zdjęciu nie ma człowieka). Wycięta twarz wysyłana jest do Azure Databricks Services, gdzie przekazywana jest na wejście modelu sieci neuronowej. Zwracanym wynikiem jest wiek osoby, który jest wyświetlany na stronie internetowej użytkownikowi, który to zdjęcie wysłał. Azure Blob Storage przechowuje cały dataset (chyba, że model nie będzie douczany), a baza PostgreeQSL DB przechowuje model sieci neuronowej.
 
 Ewentualnym rozszerzeniem aplikacji będzie użycie Azure Cognitive Services (z Face API), które również będzie zwracało wiek osoby na zdjęciu, dzięki czemu będzie można porównywać wyniki.
 
@@ -49,21 +49,19 @@ Zbiór zawiera wiele nieporawnych zdjęć, więc użyjemy tylko części "faces 
 
 ## Zadania
 
-*  logowanie przez Azure AD
-*  utworzenie strony internetowej
-*  wgrywanie plików ze zdjęciem na stronę
-*  zapisywanie zdjęć do Azure Blob Storage
-*  obróbka przesyłanych zdjęć (wycinanie twarzy, walidacja)
-*  wyświetlanie przesłanych zdjęć na stronie
-*  uruchamianie Azure ML w celu określenia wieku
-*  stworzenie modelu sieci neuronowej
-*  wgranie modelu do Azure ML
-*  zwracanie wyniku na stronę internetową
-*  zapisywanie wyników w Cosmos DB
-
+*  logowanie przez Azure AD - Marek
+*  utworzenie strony internetowej - Marek
+*  wgrywanie plików ze zdjęciem na stronę - Marek
+*  zapisywanie zdjęć do Azure Blob Storage - Marcin
+*  obróbka przesyłanych zdjęć (wycinanie twarzy, walidacja) - Magda
+*  wyświetlanie przesłanych zdjęć na stronie - Paweł
+*  uruchamianie Azure Dataabricks w celu określenia wieku - Marcin
+*  stworzenie modelu sieci neuronowej - Malwina
+*  wgranie modelu do Azure Databricks - Malwina
+*  zwracanie wyniku na stronę internetową - Magda
+*  zapisywanie wyników w PostreSQL DB - Edward
+*  obsłużenie Cognitive Services - Edward
 
 ## Pytania
 
-1. Architektura aplikacji w Azure
 
-2. Douczanie modelu: Czy model będzie "douczany" za pomocą nowych zdjęć, czy użyjemy wcześniej wytrenowanego modelu sieci neuronowej.
