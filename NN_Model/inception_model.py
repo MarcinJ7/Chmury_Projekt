@@ -8,14 +8,10 @@ from tensorflow import keras
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 from tensorflow.keras import optimizers
-from tensorflow.keras.applications import inception_v3
 from tensorflow.keras.applications.inception_v3 import InceptionV3
-from tensorflow.keras.applications.inception_v3 import preprocess_input as inception_v3_preprocessor
 
 from tensorflow.keras.layers import Dense, GlobalAveragePooling2D
 from tensorflow.keras.models import Model
-
-from tensorflow.keras.optimizers import Adam
 
 import pandas as pd
 
