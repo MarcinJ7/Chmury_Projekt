@@ -4,11 +4,10 @@ Build and train the model of NN
 @author: Malwina
 """
 
-import tensorflow
-from tensorflow import keras
-from tensorflow.keras import layers
-from tensorflow.keras import optimizers
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
+import keras
+from keras import layers
+from keras import optimizers
+from keras.preprocessing.image import ImageDataGenerator
 import matplotlib.pyplot as plt
 import pandas as pd
 
@@ -19,7 +18,7 @@ path_dir = r'D:/chmury/imdb/preprocessed/'            # path of preprocessed ima
 
 # definicja modelu sieci
 
-model = tensorflow.keras.Sequential()  # rodzaj modelu sieci
+model = keras.Sequential()  # rodzaj modelu sieci
 # 1. Warstwa konwolucyjna, rozmiar okna: 3x3, głębia jądra: 32
 model.add(layers.Conv2D(32, (3, 3), activation='relu', input_shape=shape))
 model.add(layers.MaxPooling2D((2, 2)))
@@ -72,9 +71,11 @@ with open(path_dir + 'model_cnn.json', 'w') as json_file:
 print('Saved model to disk')
 
 # Wczytanie danych do pandas df
-df = pd.read_csv(path_dir + 'dataset_train.csv', sep=',', header=0, names=['path', 'age', 'gender'])
-df_val = pd.read_csv(path_dir + 'dataset_test.csv', sep=',', header=0, names=['path', 'age', 'gender'])
-
+df = pd.read_csv(path_dir + 'train.csv', sep=',', header=0, names=['path', 'age', 'gender'])
+df_val = pd.read_csv(path_dir + 'test.csv', sep=',', header=0, names=['path', 'age', 'gender'])
+print(df)
+print(df)
+k
 # Przetworzenie zdjęć z augumentacją, czyli "dorabianiem" nowych zdjęc
 # dane treningowe
 train_datagen = ImageDataGenerator(rescale=1. / 255)
