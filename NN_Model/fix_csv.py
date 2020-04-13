@@ -76,7 +76,7 @@ with open(path_test_output, 'w') as csvfile:
     writer = csv.writer(csvfile)
     writer.writerows(output_test)
 
-print('Train file: processed', i, 'rows, deleted', i-j)
+print('Test file: processed', i, 'rows, deleted', i-j)
 print('Number of images:', len(output_train) + len(output_test))
 
 
