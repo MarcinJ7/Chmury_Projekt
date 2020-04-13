@@ -3,11 +3,11 @@ Build and train the model of NN
 
 @author: Malwina
 """
-
-import keras
-from keras import layers
-from keras import optimizers
-from keras.preprocessing.image import ImageDataGenerator
+import tensorflow
+from tensorflow import keras
+from tensorflow.keras import layers
+from tensorflow.keras import optimizers
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
 import matplotlib.pyplot as plt
 import pandas as pd
 
@@ -18,7 +18,7 @@ path_dir = r'D:/chmury/imdb/preprocessed/'            # path of preprocessed ima
 
 # definicja modelu sieci
 
-model = keras.Sequential()  # rodzaj modelu sieci
+model = tensorflow.keras.Sequential()  # rodzaj modelu sieci
 # 1. Warstwa konwolucyjna, rozmiar okna: 3x3, głębia jądra: 32
 model.add(layers.Conv2D(32, (3, 3), activation='relu', input_shape=shape))
 model.add(layers.MaxPooling2D((2, 2)))
@@ -73,9 +73,7 @@ print('Saved model to disk')
 # Wczytanie danych do pandas df
 df = pd.read_csv(path_dir + 'train.csv', sep=',', header=0, names=['path', 'age', 'gender'])
 df_val = pd.read_csv(path_dir + 'test.csv', sep=',', header=0, names=['path', 'age', 'gender'])
-print(df)
-print(df)
-k
+
 # Przetworzenie zdjęć z augumentacją, czyli "dorabianiem" nowych zdjęc
 # dane treningowe
 train_datagen = ImageDataGenerator(rescale=1. / 255)
@@ -105,9 +103,10 @@ validation_generator = test_datagen.flow_from_dataframe(
 history = model.fit(
     train_generator,
     steps_per_epoch=100,
-    epochs=50,
+    epochs=100,
     validation_data=validation_generator,
-    callbacks=callbacks)
+    callbacks=callbacks,)
+    # shuffle=True)
 
 # Wykres
 loss = history.history['loss']

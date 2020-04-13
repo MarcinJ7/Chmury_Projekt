@@ -68,13 +68,13 @@ with open(path_test_input, 'r') as csvfile:
         if os.path.isfile(path_image):
             if int(age) > 0:
                 if gender != 'nan':
-                    output_train.append(row)
+                    output_test.append(row)
                     j += 1
 
 # new test file
 with open(path_test_output, 'w') as csvfile:
     writer = csv.writer(csvfile)
-    writer.writerows(output_train)
+    writer.writerows(output_test)
 
 print('Train file: processed', i, 'rows, deleted', i-j)
 print('Number of images:', len(output_train) + len(output_test))
