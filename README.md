@@ -26,26 +26,73 @@ Ewentualnym rozszerzeniem aplikacji będzie użycie Azure Cognitive Services (z 
 
 Jest to robocza wersja diagramu UML. Nie dodawałem administratora gdyż wykorzystywałby on dokładnie te same funkcjonalności co użytkownik. Jeżeli są jakieś sugestie, to piszcie i będę na bieżąco aktualizował diagram. 
 
-## Model sieci neuronowej
+## Sieć neuronowa
 
-https://colab.research.google.com/drive/1rPGtVji4odywJwv0ufEYi2BS-GPq7x-F?fbclid=IwAR32i5pVgd4cqhmMFU7KR-PjpRFOOyPKMrO7Oo8IVF1uD9cWK_oLN7XJ2As#scrollTo=ee0p1L0DpzXs
-
-Trzy podejścia:
-1. Sieć składająca się z trzech warstw sieci konwolucyjnej o rozmiarze okna 3x3 i głębii 32, 64, 128
-
-2. Użycie dolnych warstw modeli takich jak ResNet lub InceptionV3
-
-3. Skorzystanie z gotowych klasyfikatorów OpenCV, np. HaarCascade
-
-Zdjęcia będą poddane wcześniejszej obróbce, która wytnie fragment zdjęcia, w którym znajduje się twarz (za pomocą OpenCV).
+Kod potrzebny do przetworzenia zdjęć, budowy i wytrenowania modelu sieci neuronowej znajduje
+się w folderze NN_Model.
 
 
-## Dataset
+### Dataset
 
 IMDb-Wiki dataset: https://data.vision.ee.ethz.ch/cvl/rrothe/imdb-wiki/
 
-Zbiór zawiera wiele nieporawnych zdjęć, więc użyjemy tylko części "faces only" (8 GB).
+Dataset zawiera wiele źle wyskalowanych/wyciętych zdjęć, więc został użyty tylko podzbiór 
+"Faces only". Znajduje się w nim 640 tys. zdjęć, część z nich jest zbyt niewyraźna lub błędnie
+opisana (brak informacji lub wiek ujemny). Po modyfikacjach pozostało około 300 tys zdjęć.
 
+### Model
+
+Model sieci neuronowej składa się z warstw:
+1. Warstwa konwolucyjna, głębia jądra: 32
+2. Warstwa konwolucyjna, głębia jądra: 64
+3. Warstwa konwolucyjna, głębia jądra: 128
+4. Warstwa konwolucyjna, głębia jądra: 256
+5. Warstwa spłaszczająca dane (Flatten)
+6. Warstwa Dropout 20%
+7. Warstwa 256 gęsto połączonych neuronów
+8. Warstwa wyjściowa - 1 neuron, bez funkcji aktywacji
+
+Wszystkie warstwy konwolucyjne mają rozmiar okna równy 3x3
+
+Optymalizator: Adam, lr = 0.001
+
+### Pliki
+
+*  data_preparation:
+   *   wypakowanie danych z pliku .mat (Matlab)
+   *   usunięcie pustych zdjęć
+   *   wycięcie twarzy ze zdjęć (klasyfikator HaarCascade z OpenCV) - funkcja Marcina
+   *   ujednolicenie rozmiaru zdjęć
+   *   obliczenie wieku osób na podstawie nazwy zdjęcia
+   *   zapis danych do nowych plików csv
+
+*  fix_csv - usunięcie wierszy, które:
+   *   wskazywały na pliki, w których nie wykryto żadnej twarzy
+   *   wiek był liczbą ujemną
+   *   płeć nie była stwierdzona
+   
+*  model - model sieci neuronowej
+
+*  inception_model - wytrenowanie modelu sieci korzystającego z modelu InceptionV3
+
+*  test_model - test sieci neuronowej 
+
+*  test_inception - test sieci zawierającej model InceptionV3
+
+### Colab
+
+Notatnik w Colabie (pierwsza wersja kodu, niestety dataset był zbyt duży aby wytrenować model 
+w Colabie):
+https://colab.research.google.com/drive/1rPGtVji4odywJwv0ufEYi2BS-GPq7x-F?fbclid=IwAR32i5pVgd4cqhmMFU7KR-PjpRFOOyPKMrO7Oo8IVF1uD9cWK_oLN7XJ2As#scrollTo=ee0p1L0DpzXs
+
+### Biblioteki
+
+- TensorFlow 2.12.0
+- Keras 2.3.1
+- opencv-python 4.2.0
+- NumPy 1.18.2
+- Pandas 1.0.3
+- matplotlib 3.2.1
 
 ## Zadania
 
@@ -55,8 +102,9 @@ Zbiór zawiera wiele nieporawnych zdjęć, więc użyjemy tylko części "faces 
 *  zapisywanie zdjęć do Azure Blob Storage - Marcin
 *  obróbka przesyłanych zdjęć (wycinanie twarzy, walidacja) - Magda
 *  wyświetlanie przesłanych zdjęć na stronie - Paweł
-*  uruchamianie Azure Dataabricks w celu określenia wieku - Marcin
-*  stworzenie modelu sieci neuronowej - Malwina
+*  uruchamianie Azure Databricks w celu określenia wieku - Marcin
+*  przygotowanie danych uczących - Malwina
+*  stworzenie modelu, wytrenowanie sieci neuronowej - Malwina
 *  wgranie modelu do Azure Databricks - Malwina
 *  zwracanie wyniku na stronę internetową - Magda
 *  zapisywanie wyników w PostreSQL DB - Edward
