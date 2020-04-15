@@ -32,7 +32,7 @@ y_pred = model.predict(X)[0][0]
 print('Wiek: ', y_pred)
 
 image = cv2.imread(path_dir + '459951.jpg')
-b,g,r = cv2.split(image)        # opencv ma format BGR, więc trzeba przekształcić na RGB
+b, g, r = cv2.split(image)        # opencv ma format BGR, więc trzeba przekształcić na RGB
 image = cv2.merge([r / 255, g / 255, b / 255])
 plt.imshow(image)
 plt.axis("off")

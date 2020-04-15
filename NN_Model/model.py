@@ -54,7 +54,7 @@ callbacks = [
 
     keras.callbacks.EarlyStopping(  # zatrzymywanie uczenia po braku poprawy metryki
         monitor='mae',
-        patience=4,
+        patience=15,
     ),
 
     keras.callbacks.ReduceLROnPlateau(  # poprawianie lr po utknięciu w minimum
@@ -96,17 +96,17 @@ validation_generator = test_datagen.flow_from_dataframe(
     x_col='path',
     y_col='age',
     target_size=(tar_size, tar_size),
-    batch_size=64,
+    batch_size=32,
     class_mode='raw')
 
 # Wytrenowanie modelu
 history = model.fit(
     train_generator,
-    steps_per_epoch=100,
+    steps_per_epoch=20,
     epochs=100,
     validation_data=validation_generator,
-    callbacks=callbacks,)
-    # shuffle=True)
+    callbacks=callbacks,
+    validation_steps=10)
 
 # Wykres
 loss = history.history['loss']
