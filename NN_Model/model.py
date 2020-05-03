@@ -15,6 +15,7 @@ import pandas as pd
 tar_size = 299
 shape = (tar_size, tar_size, 3)
 path_dir = r'D:/chmury/imdb/preprocessed/'            # path of preprocessed images
+path_model = r'D:/repo/age-detection-on-azure/NN_Model/models/'
 
 # definicja modelu sieci
 
@@ -47,7 +48,7 @@ model.compile(loss='mse', optimizer=optim, metrics=['mae'])
 
 callbacks = [
     keras.callbacks.ModelCheckpoint(  # zapisywanie najlepszego modelu
-        filepath=path_dir + 'model_cnn.h5',
+        filepath=path_model + 'model_cnn3.h5',
         monitor='val_loss',
         save_best_only=True,
     ),
@@ -66,7 +67,7 @@ callbacks = [
 
 # Zapisanie modelu do pliku json (model) i h5 (wagi)
 model_json = model.to_json()
-with open(path_dir + 'model_cnn.json', 'w') as json_file:
+with open(path_model + 'model_cnn.json', 'w') as json_file:
     json_file.write(model_json)
 print('Saved model to disk')
 
