@@ -52,10 +52,10 @@ callbacks = [
         save_best_only=True,
     ),
 
-    keras.callbacks.EarlyStopping(  # zatrzymywanie uczenia po braku poprawy metryki
-        monitor='mae',
-        patience=15,
-    ),
+    # keras.callbacks.EarlyStopping(  # zatrzymywanie uczenia po braku poprawy metryki
+    #     monitor='mae',
+    #     patience=15,
+    # ),
 
     keras.callbacks.ReduceLROnPlateau(  # poprawianie lr po utknięciu w minimum
         monitor='val_loss',

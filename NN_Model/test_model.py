@@ -9,35 +9,42 @@ import cv2
 import matplotlib.pyplot as plt
 import numpy as np
 
-path_dir = r'D:/chmury/imdb/preprocessed/'            # path of preprocessed images
+
+def load_model(model_filename='model_cnn.json', weights_filename='model_cnn1.h5'):
+    global model
+    json_file = open(path_model + model_filename, 'r')
+    loaded_model_json = json_file.read()
+    json_file.close()
+    model = model_from_json(loaded_model_json)
+    model.load_weights(path_model + weights_filename)
+    print('Loaded model from disk')
+
+
+def predict_age(filename):
+    filename = str(filename) + '.jpg'
+    image = cv2.imread(path_dir + filename)
+    b, g, r = cv2.split(image)                      # opencv ma format BGR, więc trzeba przekształcić na RGB
+    image = cv2.merge([r / 255, g / 255, b / 255])
+    X = np.expand_dims(image, axis=[0])
+    y_pred = model.predict(X)[0][0]
+    print('Wiek: ', int(y_pred))
+    plt.imshow(image, cmap='gray')
+    plt.axis("off")
+    plt.show()
+
+
+path_model = r'D:/repo/age-detection-on-azure/NN_Model/models/'      # ścieżka do modelu
+path_dir = r'D:/chmury/imdb/preprocessed/'                          # ścieżka do przerobionych zdjęć
 
 # Wczytanie modelu
-json_file = open(path_dir + 'model_cnn.json', 'r')
-loaded_model_json = json_file.read()
-json_file.close()
-model = model_from_json(loaded_model_json)
-model.load_weights(path_dir + 'model_cnn.h5')
-print('Loaded model from disk')
+load_model()
 
 # Test
-image = cv2.imread(path_dir + '460682.jpg')
-b, g, r = cv2.split(image)        # opencv ma format BGR, więc trzeba przekształcić na RGB
-image = cv2.merge([r / 255, g / 255, b / 255])
-plt.imshow(image, cmap='gray')
-plt.axis("off")
-plt.show()
-
-X = np.expand_dims(image, axis=[0])
-y_pred = model.predict(X)[0][0]
-print('Wiek: ', y_pred)
-
-image = cv2.imread(path_dir + '459951.jpg')
-b, g, r = cv2.split(image)        # opencv ma format BGR, więc trzeba przekształcić na RGB
-image = cv2.merge([r / 255, g / 255, b / 255])
-plt.imshow(image)
-plt.axis("off")
-plt.show()
-
-X = np.expand_dims(image, axis=[0])
-y_pred = model.predict(X)[0][0]
-print('Wiek: ', y_pred)
+predict_age(460682)
+predict_age(459951)
+predict_age(14)
+predict_age(13)
+predict_age(18)
+predict_age(57)
+predict_age(355)
+predict_age(351)
