@@ -96,20 +96,21 @@ https://colab.research.google.com/drive/1rPGtVji4odywJwv0ufEYi2BS-GPq7x-F?fbclid
 
 ## Zadania
 
+TODO:
+
 *  logowanie przez Azure AD - Marek
-*  utworzenie strony internetowej - Marek
-*  wgrywanie plików ze zdjęciem na stronę - Marek
-*  zapisywanie zdjęć do Azure Blob Storage - Marcin
-*  obróbka przesyłanych zdjęć (wycinanie twarzy, walidacja) - Magda
-*  wyświetlanie przesłanych zdjęć na stronie - Paweł
-*  uruchamianie Azure Databricks w celu określenia wieku - Marcin
-*  przygotowanie danych uczących - Malwina
-*  stworzenie modelu, wytrenowanie sieci neuronowej - Malwina
+*  zapisywanie zdjęć do Azure Blob Storage - Marek
+*  zapisywanie wyników w PostreSQL DB - Edward
+*  obsłużenie Cognitive Services - Marcin
 *  wgranie modelu do Azure Databricks - Malwina
 *  zwracanie wyniku na stronę internetową - Magda
-*  zapisywanie wyników w PostreSQL DB - Edward
-*  obsłużenie Cognitive Services - Edward
+*  uruchamianie Azure Databricks w celu określenia wieku - Marcin
+*  utworzenie strony internetowej - Marek
 
-## Pytania
+Zrobione:
 
-
+*  przygotowanie danych uczących - Malwina
+*  obróbka przesyłanych zdjęć (wycinanie twarzy, walidacja) - Marcin
+*  wgrywanie plików ze zdjęciem na stronę - Marek
+*  stworzenie modelu + wytrenowanie sieci neuronowej - Malwina
+*  wyświetlanie przesłanych zdjęć na stronie - Marek
