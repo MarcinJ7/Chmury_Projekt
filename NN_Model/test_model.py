@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def load_model(model_filename='model_cnn.json', weights_filename='model_cnn1.h5'):
+def load_model(model_filename='model_cnn.json', weights_filename='model_cnn3.h5'):
     global model
     json_file = open(path_model + model_filename, 'r')
     loaded_model_json = json_file.read()
@@ -48,3 +48,5 @@ predict_age(18)
 predict_age(57)
 predict_age(355)
 predict_age(351)
+predict_age(460301)
+predict_age(460326)

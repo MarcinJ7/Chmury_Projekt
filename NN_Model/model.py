@@ -88,7 +88,7 @@ train_generator = train_datagen.flow_from_dataframe(
     x_col='path',
     y_col='age',
     target_size=(tar_size, tar_size),
-    batch_size=64,
+    batch_size=128,
     class_mode='raw')
 
 validation_generator = test_datagen.flow_from_dataframe(
