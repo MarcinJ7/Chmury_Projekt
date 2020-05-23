@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def load_model(model_filename='model_cnn.json', weights_filename='model_cnn3.h5'):
+def load_model(model_filename='model_cnn.json', weights_filename='model_cnn.h5'):
     global model
     json_file = open(path_model + model_filename, 'r')
     loaded_model_json = json_file.read()
@@ -38,12 +38,12 @@ def predict_age(filename):
         print('Wiek: ', int(y_pred))
         plt.imshow(image, cmap='gray')
         plt.axis("off")
-        plt.show()
+    plt.show()
 
 
-path_model = r'D:/repo/age-detection-on-azure/NN_Model/models/'      # ścieżka do modelu
-path_dir = r'D:/chmury/imdb/preprocessed/'                          # ścieżka do przerobionych zdjęć
-# path_dir = r'D:/chmury/imdb/test/'
+# params
+path_model = r'D:/repo/age-detection-on-azure/NN_Model/models/'       # ścieżka do modelu
+path_dir = r'D:/chmury/imdb/preprocessed/'                            # ścieżka do przerobionych zdjęć
 path_classifier = r'C:/Users/cp/Documents/GitHub/Chmury_Projekt/Face_Detection/haarcascade_frontalface_default.xml'
 target_size = (299, 299)
 face_cascade = cv2.CascadeClassifier(path_classifier)
@@ -52,6 +52,5 @@ face_cascade = cv2.CascadeClassifier(path_classifier)
 load_model()
 
 # Test
-files = [460682, 459951, 14, 13, 18, 57, 355, 351, 460301, 460326]
-for file in files:
+for file in range(1, 9):
     predict_age(file)
