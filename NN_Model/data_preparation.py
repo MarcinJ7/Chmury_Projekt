@@ -8,10 +8,10 @@ from scipy.io import loadmat
 import cv2
 import csv
 
-
 # params
 path_input = r'D:/chmury/imdb/imdb_crop/imdb_crop/'      # path of the dataset
 path_output = r'D:/chmury/imdb/preprocessed/'            # path of preprocessed images
+
 # path of the haar cascade classifier
 path_classifier = r'C:/Users/cp/Documents/GitHub/Chmury_Projekt/Face_Detection/haarcascade_frontalface_default.xml'
 target_size = (299, 299)
@@ -29,10 +29,8 @@ mat_paths = mat_data[0][0][2][0]
 mat_gender = mat_data[0][0][3][0]
 
 # tables of csv files to train and test network
-output_train = []
-output_train.append(['path', 'age', 'gender'])
-output_test = []
-output_test.append(['path', 'age', 'gender'])
+output_train = [['path', 'age', 'gender']]
+output_test = [['path', 'age', 'gender']]
 
 i = 0
 j = -1
@@ -86,6 +84,4 @@ with open(path_file, 'w') as csvfile:
     writer = csv.writer(csvfile)
     writer.writerows(output_test)
 
-print('Files saved')
-
-
+print('Saved files')
