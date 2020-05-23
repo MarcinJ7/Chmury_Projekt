@@ -55,6 +55,3 @@ load_model()
 files = [460682, 459951, 14, 13, 18, 57, 355, 351, 460301, 460326]
 for file in files:
     predict_age(file)
-
-# for file in range(1, 7):
-#     predict_age(file)
