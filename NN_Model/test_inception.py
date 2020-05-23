@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 tar_size = 299
+path_dir = r'D:/chmury/imdb/preprocessed/'            # path of preprocessed images
 
 # Wczytanie modelu
 json_file = open(path_dir + 'model_inc.json', 'r')
