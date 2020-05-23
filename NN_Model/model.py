@@ -43,20 +43,20 @@ model.add(layers.Dense(1))
 # Funkcja printująca podsumowanie modelu sieci
 model.summary()
 
-optim = optimizers.Adam()
+optim = optimizers.Adam(0.01)
 model.compile(loss='mse', optimizer=optim, metrics=['mae'])
 
 callbacks = [
     keras.callbacks.ModelCheckpoint(  # zapisywanie najlepszego modelu
-        filepath=path_model + 'model_cnn3.h5',
+        filepath=path_model + 'model_cnn4.h5',
         monitor='val_loss',
         save_best_only=True,
     ),
 
-    # keras.callbacks.EarlyStopping(  # zatrzymywanie uczenia po braku poprawy metryki
-    #     monitor='mae',
-    #     patience=15,
-    # ),
+    keras.callbacks.EarlyStopping(  # zatrzymywanie uczenia po braku poprawy metryki
+        monitor='mae',
+        patience=15,
+    ),
 
     keras.callbacks.ReduceLROnPlateau(  # poprawianie lr po utknięciu w minimum
         monitor='val_loss',
@@ -103,7 +103,7 @@ validation_generator = test_datagen.flow_from_dataframe(
 # Wytrenowanie modelu
 history = model.fit(
     train_generator,
-    steps_per_epoch=20,
+    steps_per_epoch=50,
     epochs=100,
     validation_data=validation_generator,
     callbacks=callbacks,
