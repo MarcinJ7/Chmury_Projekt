@@ -56,7 +56,7 @@ for path in mat_paths:
         crop_img = image[y:y + h, x:x + w]
         crop_img = cv2.resize(crop_img, target_size)
         cv2.imwrite(path_save, crop_img)
-        break
+        # break
 
     row.append(path_save)
     row.append(age)
