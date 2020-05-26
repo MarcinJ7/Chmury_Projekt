@@ -21,9 +21,9 @@ Ewentualnym rozszerzeniem aplikacji będzie użycie Azure Cognitive Services (z 
 
 ## Diagram przypadków użycia
 
-![Image](images/UML.png)
+![Image](images/UMLv2.png)
 
-Jest to robocza wersja diagramu UML. Nie dodawałem administratora gdyż wykorzystywałby on dokładnie te same funkcjonalności co użytkownik. Jeżeli są jakieś sugestie, to piszcie i będę na bieżąco aktualizował diagram. 
+Jest to aktualna wersja diagramu UML. Istnieje możlwiość rozbudowy diagramu o nowe funkcjonalności takie jak logowanie do systemu, głosowanie dotyczące trafności przewidywania czy przeglądanie historii analizowanych zdjęć. 
 
 ## Model sieci neuronowej
 
@@ -87,6 +87,10 @@ Innym sprawdzanym rozwiązaniem było użycie modelu InceptionV3 (załadowanie m
 Link do modelu: https://drive.google.com/drive/folders/1Dr8UX2PS-iZbj1CPeX1rJfHnYGnkejGI
 
 Struktura sieci znajduje się w pliku JSON, a wagi w pliku h5. Model należy umieści w konterze razem z zawartoscią folderu DockerInstance.
+
+### Cognitive Services
+
+Do rozpoznawania wieku z wykorzystaniem narzędzi platformy Azure wykorzystano Face Cognitive Service w bezpłatnej wersji umożliwiającej do 30k wywołań miesięcznie. Więcej informacji na temat samego serwisu Face oraz jego możliwości można znaleźć w [dokumentacji](https://docs.microsoft.com/en-us/azure/cognitive-services/face/overview).
 
 ### Colab
 
