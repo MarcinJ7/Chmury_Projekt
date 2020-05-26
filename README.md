@@ -118,7 +118,7 @@ Zrobione:
 *  wgrywanie plików ze zdjęciem na stronę - Marek
 *  stworzenie modelu + wytrenowanie sieci neuronowej - Malwina
 *  wyświetlanie przesłanych zdjęć na stronie - Marek
-*  zapisywanie wyników w PostreSQL DB - Edward
+*  zapisywanie wyników w Azure SQL Database - Edward
 *  obsłużenie Cognitive Services - Marcin
 *  zwracanie wyniku na stronę internetową - Magda
 *  zapisywanie zdjęć do Azure Blob Storage - Marek
