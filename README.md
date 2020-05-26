@@ -26,7 +26,7 @@ Ewentualnym rozszerzeniem aplikacji będzie użycie Azure Cognitive Services (z 
 
 Jest to robocza wersja diagramu UML. Nie dodawałem administratora gdyż wykorzystywałby on dokładnie te same funkcjonalności co użytkownik. Jeżeli są jakieś sugestie, to piszcie i będę na bieżąco aktualizował diagram. 
 
-## Sieć neuronowa
+## Model sieci neuronowej
 
 Kod potrzebny do przetworzenia zdjęć, budowy i wytrenowania modelu sieci neuronowej znajduje
 się w folderze NN_Model.
@@ -56,6 +56,8 @@ Wszystkie warstwy konwolucyjne mają rozmiar okna równy 3x3
 
 Optymalizator: Adam, lr = 0.001
 
+Innym sprawdzanym rozwiązaniem było użycie modelu InceptionV3 (załadowanie modelu z argumentem freeze=true, następnie dotrenowanie dwóch warstw gęsto połączonych. 
+
 ### Pliki
 
 *  data_preparation:
@@ -75,9 +77,17 @@ Optymalizator: Adam, lr = 0.001
 
 *  inception_model - wytrenowanie modelu sieci korzystającego z modelu InceptionV3
 
+*  test_new_photos - ocena zdjęć testowych
+
 *  test_model - test sieci neuronowej 
 
 *  test_inception - test sieci zawierającej model InceptionV3
+
+## Wytrenowany model
+
+Link do modelu: https://drive.google.com/drive/folders/1Dr8UX2PS-iZbj1CPeX1rJfHnYGnkejGI
+
+Struktura sieci znajduje się w pliku JSON, a wagi w pliku h5.
 
 ### Colab
 
