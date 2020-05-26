@@ -7,7 +7,6 @@ Autorzy:
 *   Marek Knosala
 *   Malwina Kubas
 *   Magdalena Kuna
-*   Paweł Niewęgłowski
 *   Edward Sucharda
 
 
