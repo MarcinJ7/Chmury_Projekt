@@ -99,10 +99,7 @@ https://colab.research.google.com/drive/1rPGtVji4odywJwv0ufEYi2BS-GPq7x-F?fbclid
 TODO:
 
 *  logowanie przez Azure AD - Marek
-*  wgranie modelu do Azure Databricks - Malwina
 *  uruchamianie Azure Databricks w celu określenia wieku - Marcin
-*  utworzenie strony internetowej - Marek
-*  połączenie aplikacji w Function App - Magda
 
 Zrobione:
 
@@ -115,3 +112,6 @@ Zrobione:
 *  obsłużenie Cognitive Services - Marcin
 *  zwracanie wyniku na stronę internetową - Magda
 *  zapisywanie zdjęć do Azure Blob Storage - Marek
+*  utworzenie nowego AD, grupy zasobów i przypisanie uprawnień - Malwina
+*  utworzenie strony internetowej - Marek
+*  połączenie aplikacji w Function App - Magda
