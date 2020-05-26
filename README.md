@@ -87,7 +87,7 @@ Innym sprawdzanym rozwiązaniem było użycie modelu InceptionV3 (załadowanie m
 
 Link do modelu: https://drive.google.com/drive/folders/1Dr8UX2PS-iZbj1CPeX1rJfHnYGnkejGI
 
-Struktura sieci znajduje się w pliku JSON, a wagi w pliku h5.
+Struktura sieci znajduje się w pliku JSON, a wagi w pliku h5. Model należy umieści w konterze razem z zawartoscią folderu DockerInstance.
 
 ### Colab
 
