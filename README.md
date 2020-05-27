@@ -7,26 +7,29 @@ Autorzy:
 *   Marek Knosala
 *   Malwina Kubas
 *   Magdalena Kuna
-*   Paweł Niewęgłowski
 *   Edward Sucharda
 
 
 ## Architektura aplikacji w Azure
 
-![Image](images/architektura.png)
+![Image](images/schemat_chmury2.jpg)
 
-Użytkownik loguje się na stronę poprzez Azure Active Directory za pomocą konta Microsoft lub Google. Na stronie można wgrać zdjęcie, które jest wysyłane przez API Management do Azure Function App. Tam zdjęcie jest poddawane obróbce, która polega na wycięciu fragmentu zdjęcia, w którym znajduje się twarz (i ewentualne zgłoszenie błedu, jeśli na zdjęciu nie ma człowieka). Wycięta twarz wysyłana jest do Azure Databricks Services, gdzie przekazywana jest na wejście modelu sieci neuronowej. Zwracanym wynikiem jest wiek osoby, który jest wyświetlany na stronie internetowej użytkownikowi, który to zdjęcie wysłał. Azure Blob Storage przechowuje cały dataset (chyba, że model nie będzie douczany), a baza PostgreeQSL DB przechowuje model sieci neuronowej.
+Użytkownik wchodzi na stronę internetową, gdzie można wgrać zdjęcie z komputera lub podać link do zdjęcia. Następnie przekazywane jest ono do Azure Function App. Tam zdjęcie jest poddawane obróbce, która polega na wycięciu fragmentu zdjęcia, w którym znajduje się twarz (i ewentualne zgłoszenie błedu, jeśli na zdjęciu nie ma człowieka). Wycięta twarz wysyłana jest do Azure Databricks Services, gdzie przekazywana jest na wejście modelu sieci neuronowej. Zwracanym wynikiem jest wiek osoby, który jest wyświetlany na stronie internetowej użytkownikowi, który to zdjęcie wysłał. Azure Blob Storage przechowuje cały dataset (chyba, że model nie będzie douczany), a baza PostgreeQSL DB przechowuje model sieci neuronowej.
 
 Ewentualnym rozszerzeniem aplikacji będzie użycie Azure Cognitive Services (z Face API), które również będzie zwracało wiek osoby na zdjęciu, dzięki czemu będzie można porównywać wyniki.
 
 
 ## Diagram przypadków użycia
 
-![Image](images/UML.png)
+![Image](images/UMLv2.png)
 
-Jest to robocza wersja diagramu UML. Nie dodawałem administratora gdyż wykorzystywałby on dokładnie te same funkcjonalności co użytkownik. Jeżeli są jakieś sugestie, to piszcie i będę na bieżąco aktualizował diagram. 
+Jest to aktualna wersja diagramu UML. Istnieje możlwiość rozbudowy diagramu o nowe funkcjonalności takie jak logowanie do systemu, głosowanie dotyczące trafności przewidywania czy przeglądanie historii analizowanych zdjęć. 
 
-## Sieć neuronowa
+## Playlista
+
+https://www.youtube.com/playlist?list=PLCpsFIg2cqnjOLTCMcnG9uikYz1YYkgjl
+
+## Model sieci neuronowej
 
 Kod potrzebny do przetworzenia zdjęć, budowy i wytrenowania modelu sieci neuronowej znajduje
 się w folderze NN_Model.
@@ -56,6 +59,8 @@ Wszystkie warstwy konwolucyjne mają rozmiar okna równy 3x3
 
 Optymalizator: Adam, lr = 0.001
 
+Innym sprawdzanym rozwiązaniem było użycie modelu InceptionV3 (załadowanie modelu z argumentem freeze=true, następnie dotrenowanie dwóch warstw gęsto połączonych. 
+
 ### Pliki
 
 *  data_preparation:
@@ -75,9 +80,21 @@ Optymalizator: Adam, lr = 0.001
 
 *  inception_model - wytrenowanie modelu sieci korzystającego z modelu InceptionV3
 
+*  test_new_photos - ocena zdjęć testowych
+
 *  test_model - test sieci neuronowej 
 
 *  test_inception - test sieci zawierającej model InceptionV3
+
+### Wytrenowany model
+
+Link do modelu: https://drive.google.com/drive/folders/1Dr8UX2PS-iZbj1CPeX1rJfHnYGnkejGI
+
+Struktura sieci znajduje się w pliku JSON, a wagi w pliku h5. Model należy umieści w konterze razem z zawartoscią folderu DockerInstance.
+
+### Cognitive Services
+
+Do rozpoznawania wieku z wykorzystaniem narzędzi platformy Azure wykorzystano Face Cognitive Service w bezpłatnej wersji umożliwiającej do 30k wywołań miesięcznie. Więcej informacji na temat samego serwisu Face oraz jego możliwości można znaleźć w [dokumentacji](https://docs.microsoft.com/en-us/azure/cognitive-services/face/overview).
 
 ### Colab
 
@@ -94,15 +111,11 @@ https://colab.research.google.com/drive/1rPGtVji4odywJwv0ufEYi2BS-GPq7x-F?fbclid
 - Pandas 1.0.3
 - matplotlib 3.2.1
 
+## Template grupy zasobów
+
+znajduje się w pliku ExportedTemplate-Projekt_Chmury.zip
+
 ## Zadania
-
-TODO:
-
-*  logowanie przez Azure AD - Marek
-*  wgranie modelu do Azure Databricks - Malwina
-*  uruchamianie Azure Databricks w celu określenia wieku - Marcin
-*  utworzenie strony internetowej - Marek
-*  połączenie aplikacji w Function App - Magda
 
 Zrobione:
 
@@ -111,7 +124,12 @@ Zrobione:
 *  wgrywanie plików ze zdjęciem na stronę - Marek
 *  stworzenie modelu + wytrenowanie sieci neuronowej - Malwina
 *  wyświetlanie przesłanych zdjęć na stronie - Marek
-*  zapisywanie wyników w PostreSQL DB - Edward
+*  zapisywanie wyników w Azure SQL Database - Edward
 *  obsłużenie Cognitive Services - Marcin
 *  zwracanie wyniku na stronę internetową - Magda
 *  zapisywanie zdjęć do Azure Blob Storage - Marek
+*  utworzenie nowego AD, grupy zasobów i przypisanie uprawnień - Malwina
+*  utworzenie strony internetowej - Marek
+*  połączenie aplikacji w Function App - Magda
+*  logowanie przez Azure AD - Marek
+*  uruchamianie Azure Databricks (lub innego serwisu) w celu określenia wieku - Marcin

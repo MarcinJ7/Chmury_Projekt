@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon May  4 14:13:42 2020
+Created on Fri May 22 13:49:12 2020
 
 @author: Marcin
 """
@@ -11,12 +11,11 @@ import cv2
 import numpy as np
 from urllib.request import urlopen
 
-subscription_key = 'here paste your key'
+subscription_key = '883d7...0'
 
-face_api_url = 'https://...ENDPOINT.../face/v1.0/detect'
+face_api_url = 'https://comparetomodelapi.cognitiveservices.azure.com/face/v1.0/detect'
 
-# Example photo url
-image_url = 'https://cms-tc.pbskids.org/parents/expert-tips-and-advice/helping-young-children-learn-to-make-friends-hero.jpg?mtime=20181008025027'
+image_url = 'https://victoria.mediaplanet.com/app/uploads/sites/103/2019/04/Main-11.jpg'
 
 req = urlopen(image_url)
 arr = np.asarray(bytearray(req.read()), dtype=np.uint8)
