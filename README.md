@@ -34,6 +34,8 @@ https://www.youtube.com/playlist?list=PLCpsFIg2cqnjOLTCMcnG9uikYz1YYkgjl
 
 Do rozpoznawania wieku z wykorzystaniem narzędzi platformy Azure wykorzystano Face Cognitive Service w bezpłatnej wersji umożliwiającej do 30k wywołań miesięcznie. Więcej informacji na temat samego serwisu Face oraz jego możliwości można znaleźć w [dokumentacji](https://docs.microsoft.com/en-us/azure/cognitive-services/face/overview).
 
+Na potrzeby projektu została utworzona aplikacja desktopowa napisana w języku Python. Aplikacja umożliwia wykrycie wieku osób znajdujących się na zdjęciu z wykorzsytaniem endpointa Azure Face Cognitive Service. Analizowane zdjęcia podawane są do serwisu jako adresy URL. Odpowiedź zwrotna z Azura zawarta jest w formacie JSON - należy odpowiednio przetworzyć otrzymane dane, w których zawarte są informacje zwrotne na temat analizowanego obrazu. Dokonywane jest zaznaczenie położenia twarzy na obrazie za pomocą ramki oraz wypisywany jest wiek osoby/osób znajdujących się na zdjęciu (zarówno w konsoli, jak i na zdjęciu). Kolejnym krokiem jest wyświetlenie zdjęcia (już z zaznaczoną ramką i wypisanym wiekiem). Program jest dobrym narzędziem do weryfikacji  jakości tworzoengo modelu, podczas jego testowania - może stanowić odniesienie jako już dobrze wytrenowany model.
+
 ## Kontener
 
 Wszystkie pliki użyte do wyliczania wieku znajdujące się w kontenerze zostały umieszczone w folderze DockerInstance.
