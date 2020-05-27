@@ -15,7 +15,7 @@ Autorzy:
 ![Image](images/schemat_chmury2.jpg)
 
 Użytkownik wchodzi na stronę internetową, gdzie można wgrać zdjęcie z komputera lub podać link do zdjęcia. Następnie przekazywane jest ono do Azure Function App. Tymczasowo zjęcie zapisywane jest do Azure Blob Storage by łatwiej na nim operować. Następnie zdjęcie jest przekazywane w dwa miejsca. Pierwszym z nich jest usułga Coginitive Servieces, gdzie na podsatwie wycinka zdjęcia z wykrytą twarzą wyznaczany jest wiek i zwracany do Function App. 
-W drugim miejscy, do którego przekazuje zdjcie Function App, to dockerowy kontener. Tam jest ładowany wytrenowany przez nas wcześniej model. Zostają wycięte za pomocą funkcji z bibioteki OpenCV fragmenty zdjęcia zawierające twarz, które następnie zostają poddane analizie przez wcześniej wspomniany model. W kontenerze wywoływana jest również funkcja zapisująca zdjęcie wraz z wynikiem oszacowanym przez stworzoną przez nas sieć do Azure SQL Database. Na koniec program umieszczony w kontenerze zwraca wiek do unction App. Na sam koniec Function App zwraca otrzymane wyniki do Web App'a. Dzięki temu na stronie internetowej pojawiają się dwa wyniki: ten wyliczony za pomocą Cognitive Servieces jak i przez stworzoną przez nas sieć.
+Drugie miejsce, do którego przekazywane jest zdjcie z Function App, to dockerowy kontener. Tam jest ładowany model, który został przez nas wcześniej wytrenowany. Zostają wycięte za pomocą funkcji z bibioteki OpenCV fragmenty zdjęcia zawierające twarz, które następnie zostają poddane analizie przez wcześniej wspomniany model. W kontenerze wywoływana jest również funkcja zapisująca zdjęcie wraz z oszacowanym wynikiem do Azure SQL Database. Na koniec program umieszczony w kontenerze zwraca wiek do Function App. Na sam koniec Function App zwraca otrzymane wyniki do Web App'a. Dzięki temu na stronie internetowej pojawiają się dwa wyniki: wyliczony za pomocą Cognitive Servieces oraz wyliczony przez stworzoną przez nas sieć.
 Gdy na przesyłanym zdjęciu znajdują się dwie lub więcej osób obie metody szacujące wiek są tak zaprojektowane by zwracać wektor wyliczonego wieku osób na zdjęciu. W takiej sytuacji na stronie internetowej pojawi się kilka wyników odzielonych przecinkiem.
 Dzięki zapisanym zdjęciom w Azure SQL Database istnieje w przyszłości możliwość dotrenowania modelu na podstawie nowych zdjęć oraz sprawdzania poprawności obliczanych wyników przez naszą sieć na podstawie zdjęć udostępnianych przez użytkowników.
 
@@ -96,6 +96,10 @@ Struktura sieci znajduje się w pliku JSON, a wagi w pliku h5. Model należy umi
 ### Cognitive Services
 
 Do rozpoznawania wieku z wykorzystaniem narzędzi platformy Azure wykorzystano Face Cognitive Service w bezpłatnej wersji umożliwiającej do 30k wywołań miesięcznie. Więcej informacji na temat samego serwisu Face oraz jego możliwości można znaleźć w [dokumentacji](https://docs.microsoft.com/en-us/azure/cognitive-services/face/overview).
+
+## Kontener
+
+Wszystkie pliki użyte do wyliczania wieku znajdujące się w kontenerze zostały umieszczone w folderze DockerInstance.
 
 ### Colab
 
