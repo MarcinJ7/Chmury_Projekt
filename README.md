@@ -111,12 +111,11 @@ https://colab.research.google.com/drive/1rPGtVji4odywJwv0ufEYi2BS-GPq7x-F?fbclid
 - Pandas 1.0.3
 - matplotlib 3.2.1
 
+## Template grupy zasobów
+
+znajduje się w pliku ExportedTemplate-Projekt_Chmury.zip
+
 ## Zadania
-
-TODO:
-
-*  logowanie przez Azure AD - Marek
-*  uruchamianie Azure Databricks w celu określenia wieku - Marcin
 
 Zrobione:
 
@@ -132,3 +131,5 @@ Zrobione:
 *  utworzenie nowego AD, grupy zasobów i przypisanie uprawnień - Malwina
 *  utworzenie strony internetowej - Marek
 *  połączenie aplikacji w Function App - Magda
+*  logowanie przez Azure AD - Marek
+*  uruchamianie Azure Databricks (lub innego serwisu) w celu określenia wieku - Marcin
