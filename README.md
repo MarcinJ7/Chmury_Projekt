@@ -14,9 +14,10 @@ Autorzy:
 
 ![Image](images/schemat_chmury2.jpg)
 
-Użytkownik wchodzi na stronę internetową, gdzie można wgrać zdjęcie z komputera lub podać link do zdjęcia. Następnie przekazywane jest ono do Azure Function App. Tam zdjęcie jest poddawane obróbce, która polega na wycięciu fragmentu zdjęcia, w którym znajduje się twarz (i ewentualne zgłoszenie błedu, jeśli na zdjęciu nie ma człowieka). Wycięta twarz wysyłana jest do Azure Databricks Services, gdzie przekazywana jest na wejście modelu sieci neuronowej. Zwracanym wynikiem jest wiek osoby, który jest wyświetlany na stronie internetowej użytkownikowi, który to zdjęcie wysłał. Azure Blob Storage przechowuje cały dataset (chyba, że model nie będzie douczany), a baza PostgreeQSL DB przechowuje model sieci neuronowej.
-
-Ewentualnym rozszerzeniem aplikacji będzie użycie Azure Cognitive Services (z Face API), które również będzie zwracało wiek osoby na zdjęciu, dzięki czemu będzie można porównywać wyniki.
+Użytkownik wchodzi na stronę internetową, gdzie można wgrać zdjęcie z komputera lub podać link do zdjęcia. Następnie przekazywane jest ono do Azure Function App. Tymczasowo zjęcie zapisywane jest do Azure Blob Storage by łatwiej na nim operować. Następnie zdjęcie jest przekazywane w dwa miejsca. Pierwszym z nich jest usułga Coginitive Servieces, gdzie na podsatwie wycinka zdjęcia z wykrytą twarzą wyznaczany jest wiek i zwracany do Function App. 
+W drugim miejscy, do którego przekazuje zdjcie Function App, to dockerowy kontener. Tam jest ładowany wytrenowany przez nas wcześniej model. Zostają wycięte za pomocą funkcji z bibioteki OpenCV fragmenty zdjęcia zawierające twarz, które następnie zostają poddane analizie przez wcześniej wspomniany model. W kontenerze wywoływana jest również funkcja zapisująca zdjęcie wraz z wynikiem oszacowanym przez stworzoną przez nas sieć do Azure SQL Database. Na koniec program umieszczony w kontenerze zwraca wiek do unction App. Na sam koniec Function App zwraca otrzymane wyniki do Web App'a. Dzięki temu na stronie internetowej pojawiają się dwa wyniki: ten wyliczony za pomocą Cognitive Servieces jak i przez stworzoną przez nas sieć.
+Gdy na przesyłanym zdjęciu znajdują się dwie lub więcej osób obie metody szacujące wiek są tak zaprojektowane by zwracać wektor wyliczonego wieku osób na zdjęciu. W takiej sytuacji na stronie internetowej pojawi się kilka wyników odzielonych przecinkiem.
+Dzięki zapisanym zdjęciom w Azure SQL Database istnieje w przyszłości możliwość dotrenowania modelu na podstawie nowych zdjęć oraz sprawdzania poprawności obliczanych wyników przez naszą sieć na podstawie zdjęć udostępnianych przez użytkowników.
 
 
 ## Diagram przypadków użycia
@@ -132,4 +133,4 @@ Zrobione:
 *  utworzenie strony internetowej - Marek
 *  połączenie aplikacji w Function App - Magda
 *  logowanie przez Azure AD - Marek
-*  uruchamianie Azure Databricks (lub innego serwisu) w celu określenia wieku - Marcin
+*  uruchamianie Azure Databricks (lub innego serwisu) w celu określenia wieku - Edward + Magda
