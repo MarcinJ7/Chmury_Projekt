@@ -25,6 +25,10 @@ Ewentualnym rozszerzeniem aplikacji będzie użycie Azure Cognitive Services (z 
 
 Jest to aktualna wersja diagramu UML. Istnieje możlwiość rozbudowy diagramu o nowe funkcjonalności takie jak logowanie do systemu, głosowanie dotyczące trafności przewidywania czy przeglądanie historii analizowanych zdjęć. 
 
+## Playlista
+
+https://www.youtube.com/playlist?list=PLCpsFIg2cqnjOLTCMcnG9uikYz1YYkgjl
+
 ## Model sieci neuronowej
 
 Kod potrzebny do przetworzenia zdjęć, budowy i wytrenowania modelu sieci neuronowej znajduje
