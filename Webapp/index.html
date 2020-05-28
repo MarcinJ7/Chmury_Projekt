@@ -1,0 +1,149 @@
+<!doctype html>
+<html>
+    <head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta name="author" content="Marek Knosala" />
+	
+
+		<link rel="stylesheet" href="stylesv2.css">
+		<link href='http://fonts.googleapis.com/css?family=Lato|Josefin+Sans&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+
+		<title>Check your age</title>
+		
+        <script>
+            let imageEncoded;
+            let imageUrl;
+
+            async function postData(url = '', data = {}) {
+                  // Default options are marked with *
+                  const response = await fetch(url, {
+                        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+                        mode: 'cors', // no-cors, *cors, same-origin
+                        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                        credentials: 'same-origin', // include, *same-origin, omit
+                        headers: {
+                          'Content-Type': 'application/json'
+                          // 'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        redirect: 'follow', // manual, *follow, error
+                        referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+                        body: JSON.stringify(data) // body data type must match "Content-Type" header
+                  });
+                  return response.json(); // parses JSON response into native JavaScript objects
+            }
+
+            function onChangeFile(event) {
+                if (event.srcElement.files.length === 0) {
+                    return;
+                }
+
+                var file = event.srcElement.files[0];
+                var reader = new FileReader();
+                reader.readAsBinaryString(file);
+
+                reader.onload = function() {
+                    imageEncoded = btoa(reader.result);
+                };
+                reader.onerror = function() {
+                    alert('Wystapil problem');
+                };
+            }
+
+            function onChangeUrl(event) {
+                imageUrl = event.srcElement.value;
+            }
+
+            function uploadFile() {
+                if (!imageEncoded) {
+                    return;
+                }
+                document.getElementById('ageCS').innerText = "Obliczanie...";
+                document.getElementById('ageDocker').innerText = '';
+                postData('https://getagefromphoto.azurewebsites.net/api/HttpTrigger1?code=edIQp4TvDakllxMwKFXV3PTVOWJ5OuH450IEAHifIBCKsf52NcR4tQ==', { imageEncoded })
+                    .then(data => {
+                        if (data && data.ageCS) {
+                            document.getElementById('ageCS').innerText = "Wiek (Cognitive Services): " + data.ageCS;
+                            document.getElementById('ageDocker').innerText = "Wiek (Nasz model): " + data.ageDocker;
+                        } else if (data && data.error) {
+                            document.getElementById('ageCS').innerText = "Wystapil blad: " + data.error;
+                            document.getElementById('ageDocker').innerText = '';
+                        } else {
+                            document.getElementById('ageCS').innerText = 'Wystapil blad';
+                            document.getElementById('ageDocker').innerText = '';
+                        }
+                    }).catch(err => {
+                        alert(err);
+                    });
+            }
+
+            function uploadUrl() {
+                if (!imageUrl) {
+                    return;
+                }
+                document.getElementById('ageCS').innerText = "Obliczanie...";
+                document.getElementById('ageDocker').innerText = '';
+                postData('https://getagefromphoto.azurewebsites.net/api/HttpTrigger1?code=edIQp4TvDakllxMwKFXV3PTVOWJ5OuH450IEAHifIBCKsf52NcR4tQ==', { imageUrl })
+                    .then(data => {
+                        if (data && data.ageCS) {
+                            document.getElementById('ageCS').innerText = "Wiek (Cognitive Services): " + data.ageCS;
+                            document.getElementById('ageDocker').innerText = "Wiek (Nasz model): " + data.ageDocker;
+                        } else if (data && data.error) {
+                            document.getElementById('ageCS').innerText = "Wystapil blad: " + data.error;
+                            document.getElementById('ageDocker').innerText = '';
+                        } else {
+                            document.getElementById('ageCS').innerText = 'Wystapil blad';
+                            document.getElementById('ageDocker').innerText = '';
+                        }
+                    }).catch(err => {
+                        alert(err);
+                    });
+            }
+        </script>
+    </head>
+    <body>
+	    <div id="wrapper">
+		<div id="header">
+			<div id="logo">
+				Check <span style="color: red;">your</span> age with <span style="color: red;">AI</span>
+			</div>
+		</div>
+		<div id="content">	
+		
+			<div class="frame">
+				<div class="image">
+                    <img src="img.png" />
+				</div>
+				<div class="starttext">
+					<h3>Upload your photo</h3>
+					
+					<input type="file" id="upload" onchange="onChangeFile(event)" accept="image/*" >
+					<label for="upload" />choose a file</label>
+					
+					
+					<button type="submit" onclick="uploadFile()">Upload file</button>
+					<br/>
+					<input type="text" id="upload-url" onchange="onChangeUrl(event)" >
+					<button type="submit" onclick="uploadUrl()">Upload url</button>
+					<div id="ageCS"></div>
+					<div id="ageDocker"></div>
+				</div>
+			</div>
+			
+			<div class="dottedline"></div>
+			
+			<div class="frame">
+				<div class="starttext" id="about">
+					<h3>About</h3>
+					<p>This student project was created by: Malwina Kubas, Magdalena Kuna, Marcin Jurczak, Marek Knosala, Edward Sucharda </p>
+				</div>
+			</div>
+			
+		</div>
+		<div id="footer">
+			&copy;2020 Marek Knosala <span style="color: red;"><i class="demo-icon icon-emo-devil">&#xe805;</i></span>
+		</div>
+	</div>
+
+    </body>
+</html>
