@@ -1,0 +1,75 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "servers_serwerdb_name": {
+            "value": null
+        },
+        "sites_getageprojekt_name": {
+            "value": null
+        },
+        "sites_getAgeFromPhoto_name": {
+            "value": null
+        },
+        "virtualMachines_vm_name": {
+            "value": null
+        },
+        "networkInterfaces_vm957_name": {
+            "value": null
+        },
+        "publicIPAddresses_vm_ip_name": {
+            "value": null
+        },
+        "components_getAgeFromPhoto_name": {
+            "value": null
+        },
+        "storageAccounts_blobprojekt_name": {
+            "value": null
+        },
+        "networkSecurityGroups_vm_nsg_name": {
+            "value": null
+        },
+        "serverfarms_ASP_ProjektChmury_8349_name": {
+            "value": null
+        },
+        "serverfarms_ASP_ProjektChmury_9710_name": {
+            "value": null
+        },
+        "vaults_ageestimation7343448364_name": {
+            "value": null
+        },
+        "containerGroups_getage_name": {
+            "value": null
+        },
+        "storageAccounts_projektchmurydiag_name": {
+            "value": null
+        },
+        "storageAccounts_sqlva4r3toher7yeby_name": {
+            "value": null
+        },
+        "components_ageestimation0567725205_name": {
+            "value": null
+        },
+        "virtualNetworks_Projekt_Chmury_vnet_name": {
+            "value": null
+        },
+        "accounts_compareToModelAPI_name": {
+            "value": null
+        },
+        "storageAccounts_ageestimation1533748507_name": {
+            "value": null
+        },
+        "storageAccounts_storageaccountproje9024_name": {
+            "value": null
+        },
+        "actionGroups_Application_Insights_Smart_Detection_name": {
+            "value": null
+        },
+        "smartdetectoralertrules_failure_anomalies___getagefromphoto_name": {
+            "value": null
+        },
+        "smartdetectoralertrules_failure_anomalies___ageestimation0567725205_name": {
+            "value": null
+        }
+    }
+}

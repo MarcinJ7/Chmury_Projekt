@@ -1,0 +1,1978 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "servers_serwerdb_name": {
+            "defaultValue": "serwerdb",
+            "type": "String"
+        },
+        "sites_getageprojekt_name": {
+            "defaultValue": "getageprojekt",
+            "type": "String"
+        },
+        "sites_getAgeFromPhoto_name": {
+            "defaultValue": "getAgeFromPhoto",
+            "type": "String"
+        },
+        "virtualMachines_vm_name": {
+            "defaultValue": "vm",
+            "type": "String"
+        },
+        "networkInterfaces_vm957_name": {
+            "defaultValue": "vm957",
+            "type": "String"
+        },
+        "publicIPAddresses_vm_ip_name": {
+            "defaultValue": "vm-ip",
+            "type": "String"
+        },
+        "components_getAgeFromPhoto_name": {
+            "defaultValue": "getAgeFromPhoto",
+            "type": "String"
+        },
+        "storageAccounts_blobprojekt_name": {
+            "defaultValue": "blobprojekt",
+            "type": "String"
+        },
+        "networkSecurityGroups_vm_nsg_name": {
+            "defaultValue": "vm-nsg",
+            "type": "String"
+        },
+        "serverfarms_ASP_ProjektChmury_8349_name": {
+            "defaultValue": "ASP-ProjektChmury-8349",
+            "type": "String"
+        },
+        "serverfarms_ASP_ProjektChmury_9710_name": {
+            "defaultValue": "ASP-ProjektChmury-9710",
+            "type": "String"
+        },
+        "vaults_ageestimation7343448364_name": {
+            "defaultValue": "ageestimation7343448364",
+            "type": "String"
+        },
+        "containerGroups_getage_name": {
+            "defaultValue": "getage",
+            "type": "String"
+        },
+        "storageAccounts_projektchmurydiag_name": {
+            "defaultValue": "projektchmurydiag",
+            "type": "String"
+        },
+        "storageAccounts_sqlva4r3toher7yeby_name": {
+            "defaultValue": "sqlva4r3toher7yeby",
+            "type": "String"
+        },
+        "components_ageestimation0567725205_name": {
+            "defaultValue": "ageestimation0567725205",
+            "type": "String"
+        },
+        "virtualNetworks_Projekt_Chmury_vnet_name": {
+            "defaultValue": "Projekt_Chmury-vnet",
+            "type": "String"
+        },
+        "accounts_compareToModelAPI_name": {
+            "defaultValue": "compareToModelAPI",
+            "type": "String"
+        },
+        "storageAccounts_ageestimation1533748507_name": {
+            "defaultValue": "ageestimation1533748507",
+            "type": "String"
+        },
+        "storageAccounts_storageaccountproje9024_name": {
+            "defaultValue": "storageaccountproje9024",
+            "type": "String"
+        },
+        "actionGroups_Application_Insights_Smart_Detection_name": {
+            "defaultValue": "Application Insights Smart Detection",
+            "type": "String"
+        },
+        "smartdetectoralertrules_failure_anomalies___getagefromphoto_name": {
+            "defaultValue": "failure anomalies - getagefromphoto",
+            "type": "String"
+        },
+        "smartdetectoralertrules_failure_anomalies___ageestimation0567725205_name": {
+            "defaultValue": "failure anomalies - ageestimation0567725205",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.CognitiveServices/accounts",
+            "apiVersion": "2017-04-18",
+            "name": "[parameters('accounts_compareToModelAPI_name')]",
+            "location": "southcentralus",
+            "sku": {
+                "name": "F0"
+            },
+            "kind": "Face",
+            "properties": {
+                "customSubDomainName": "comparetomodelapi"
+            }
+        },
+        {
+            "type": "Microsoft.ContainerInstance/containerGroups",
+            "apiVersion": "2018-10-01",
+            "name": "[parameters('containerGroups_getage_name')]",
+            "location": "southcentralus",
+            "properties": {
+                "containers": [
+                    {
+                        "name": "[parameters('containerGroups_getage_name')]",
+                        "properties": {
+                            "image": "magdalenakuna/test-wiek:3",
+                            "ports": [
+                                {
+                                    "protocol": "TCP",
+                                    "port": 5000
+                                }
+                            ],
+                            "environmentVariables": [],
+                            "resources": {
+                                "requests": {
+                                    "memoryInGB": 1.5,
+                                    "cpu": 1
+                                }
+                            }
+                        }
+                    }
+                ],
+                "restartPolicy": "OnFailure",
+                "ipAddress": {
+                    "ports": [
+                        {
+                            "protocol": "TCP",
+                            "port": 5000
+                        }
+                    ],
+                    "ip": "52.183.217.150",
+                    "type": "Public"
+                },
+                "osType": "Linux"
+            }
+        },
+        {
+            "type": "microsoft.insights/actionGroups",
+            "apiVersion": "2019-03-01",
+            "name": "[parameters('actionGroups_Application_Insights_Smart_Detection_name')]",
+            "location": "Global",
+            "properties": {
+                "groupShortName": "SmartDetect",
+                "enabled": true,
+                "emailReceivers": [],
+                "smsReceivers": [],
+                "webhookReceivers": [],
+                "itsmReceivers": [],
+                "azureAppPushReceivers": [],
+                "automationRunbookReceivers": [],
+                "voiceReceivers": [],
+                "logicAppReceivers": [],
+                "azureFunctionReceivers": []
+            }
+        },
+        {
+            "type": "microsoft.insights/components",
+            "apiVersion": "2015-05-01",
+            "name": "[parameters('components_ageestimation0567725205_name')]",
+            "location": "southcentralus",
+            "kind": "web",
+            "properties": {
+                "Application_Type": "web"
+            }
+        },
+        {
+            "type": "microsoft.insights/components",
+            "apiVersion": "2015-05-01",
+            "name": "[parameters('components_getAgeFromPhoto_name')]",
+            "location": "australiaeast",
+            "kind": "web",
+            "properties": {
+                "Application_Type": "web",
+                "Request_Source": "IbizaWebAppExtensionCreate"
+            }
+        },
+        {
+            "type": "Microsoft.KeyVault/vaults",
+            "apiVersion": "2016-10-01",
+            "name": "[parameters('vaults_ageestimation7343448364_name')]",
+            "location": "southcentralus",
+            "properties": {
+                "sku": {
+                    "family": "A",
+                    "name": "Standard"
+                },
+                "tenantId": "d96516ac-d699-49f0-8cf0-eb8f5c12dcaa",
+                "accessPolicies": [],
+                "enabledForDeployment": true,
+                "enabledForTemplateDeployment": true
+            }
+        },
+        {
+            "type": "Microsoft.Network/networkSecurityGroups",
+            "apiVersion": "2020-03-01",
+            "name": "[parameters('networkSecurityGroups_vm_nsg_name')]",
+            "location": "southcentralus",
+            "properties": {
+                "securityRules": [
+                    {
+                        "name": "SSH",
+                        "properties": {
+                            "protocol": "TCP",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "22",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 300,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Port_8080",
+                        "properties": {
+                            "protocol": "TCP",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "80",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 310,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Port_8080s",
+                        "properties": {
+                            "protocol": "TCP",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "443",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 320,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "type": "Microsoft.Network/publicIPAddresses",
+            "apiVersion": "2020-03-01",
+            "name": "[parameters('publicIPAddresses_vm_ip_name')]",
+            "location": "southcentralus",
+            "sku": {
+                "name": "Basic"
+            },
+            "properties": {
+                "ipAddress": "104.210.156.104",
+                "publicIPAddressVersion": "IPv4",
+                "publicIPAllocationMethod": "Dynamic",
+                "idleTimeoutInMinutes": 4,
+                "ipTags": []
+            }
+        },
+        {
+            "type": "Microsoft.Network/virtualNetworks",
+            "apiVersion": "2020-03-01",
+            "name": "[parameters('virtualNetworks_Projekt_Chmury_vnet_name')]",
+            "location": "southcentralus",
+            "properties": {
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "10.0.0.0/24"
+                    ]
+                },
+                "subnets": [
+                    {
+                        "name": "default",
+                        "properties": {
+                            "addressPrefix": "10.0.0.0/24",
+                            "delegations": [],
+                            "privateEndpointNetworkPolicies": "Enabled",
+                            "privateLinkServiceNetworkPolicies": "Enabled"
+                        }
+                    }
+                ],
+                "virtualNetworkPeerings": [],
+                "enableDdosProtection": false,
+                "enableVmProtection": false
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers",
+            "apiVersion": "2019-06-01-preview",
+            "name": "[parameters('servers_serwerdb_name')]",
+            "location": "southcentralus",
+            "kind": "v12.0",
+            "properties": {
+                "administratorLogin": "azureuser",
+                "version": "12.0",
+                "publicNetworkAccess": "Enabled"
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts",
+            "apiVersion": "2019-06-01",
+            "name": "[parameters('storageAccounts_ageestimation1533748507_name')]",
+            "location": "southcentralus",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "StorageV2",
+            "properties": {
+                "networkAcls": {
+                    "bypass": "AzureServices",
+                    "virtualNetworkRules": [],
+                    "ipRules": [],
+                    "defaultAction": "Allow"
+                },
+                "supportsHttpsTrafficOnly": true,
+                "encryption": {
+                    "services": {
+                        "file": {
+                            "keyType": "Account",
+                            "enabled": true
+                        },
+                        "blob": {
+                            "keyType": "Account",
+                            "enabled": true
+                        }
+                    },
+                    "keySource": "Microsoft.Storage"
+                },
+                "accessTier": "Hot"
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts",
+            "apiVersion": "2019-06-01",
+            "name": "[parameters('storageAccounts_blobprojekt_name')]",
+            "location": "southcentralus",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "BlobStorage",
+            "properties": {
+                "networkAcls": {
+                    "bypass": "AzureServices",
+                    "virtualNetworkRules": [],
+                    "ipRules": [],
+                    "defaultAction": "Allow"
+                },
+                "supportsHttpsTrafficOnly": true,
+                "encryption": {
+                    "services": {
+                        "file": {
+                            "keyType": "Account",
+                            "enabled": true
+                        },
+                        "blob": {
+                            "keyType": "Account",
+                            "enabled": true
+                        }
+                    },
+                    "keySource": "Microsoft.Storage"
+                },
+                "accessTier": "Hot"
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts",
+            "apiVersion": "2019-06-01",
+            "name": "[parameters('storageAccounts_projektchmurydiag_name')]",
+            "location": "southcentralus",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "Storage",
+            "properties": {
+                "networkAcls": {
+                    "bypass": "AzureServices",
+                    "virtualNetworkRules": [],
+                    "ipRules": [],
+                    "defaultAction": "Allow"
+                },
+                "supportsHttpsTrafficOnly": true,
+                "encryption": {
+                    "services": {
+                        "file": {
+                            "keyType": "Account",
+                            "enabled": true
+                        },
+                        "blob": {
+                            "keyType": "Account",
+                            "enabled": true
+                        }
+                    },
+                    "keySource": "Microsoft.Storage"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts",
+            "apiVersion": "2019-06-01",
+            "name": "[parameters('storageAccounts_sqlva4r3toher7yeby_name')]",
+            "location": "southcentralus",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "StorageV2",
+            "properties": {
+                "networkAcls": {
+                    "bypass": "AzureServices",
+                    "virtualNetworkRules": [],
+                    "ipRules": [],
+                    "defaultAction": "Allow"
+                },
+                "supportsHttpsTrafficOnly": true,
+                "encryption": {
+                    "services": {
+                        "file": {
+                            "keyType": "Account",
+                            "enabled": true
+                        },
+                        "blob": {
+                            "keyType": "Account",
+                            "enabled": true
+                        }
+                    },
+                    "keySource": "Microsoft.Storage"
+                },
+                "accessTier": "Hot"
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts",
+            "apiVersion": "2019-06-01",
+            "name": "[parameters('storageAccounts_storageaccountproje9024_name')]",
+            "location": "australiacentral",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "Storage",
+            "properties": {
+                "networkAcls": {
+                    "bypass": "AzureServices",
+                    "virtualNetworkRules": [],
+                    "ipRules": [],
+                    "defaultAction": "Allow"
+                },
+                "supportsHttpsTrafficOnly": true,
+                "encryption": {
+                    "services": {
+                        "file": {
+                            "keyType": "Account",
+                            "enabled": true
+                        },
+                        "blob": {
+                            "keyType": "Account",
+                            "enabled": true
+                        }
+                    },
+                    "keySource": "Microsoft.Storage"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Web/serverfarms",
+            "apiVersion": "2018-02-01",
+            "name": "[parameters('serverfarms_ASP_ProjektChmury_8349_name')]",
+            "location": "West US",
+            "sku": {
+                "name": "F1",
+                "tier": "Free",
+                "size": "F1",
+                "family": "F",
+                "capacity": 1
+            },
+            "kind": "linux",
+            "properties": {
+                "perSiteScaling": false,
+                "maximumElasticWorkerCount": 1,
+                "isSpot": false,
+                "reserved": true,
+                "isXenon": false,
+                "hyperV": false,
+                "targetWorkerCount": 0,
+                "targetWorkerSizeId": 0
+            }
+        },
+        {
+            "type": "Microsoft.Web/serverfarms",
+            "apiVersion": "2018-02-01",
+            "name": "[parameters('serverfarms_ASP_ProjektChmury_9710_name')]",
+            "location": "Australia Central",
+            "sku": {
+                "name": "B1",
+                "tier": "Basic",
+                "size": "B1",
+                "family": "B",
+                "capacity": 1
+            },
+            "kind": "linux",
+            "properties": {
+                "perSiteScaling": false,
+                "maximumElasticWorkerCount": 1,
+                "isSpot": false,
+                "reserved": true,
+                "isXenon": false,
+                "hyperV": false,
+                "targetWorkerCount": 0,
+                "targetWorkerSizeId": 0
+            }
+        },
+        {
+            "type": "Microsoft.KeyVault/vaults/secrets",
+            "apiVersion": "2016-10-01",
+            "name": "[concat(parameters('vaults_ageestimation7343448364_name'), '/6caae255-b419-4db0-a576-372a04c2ae69-IfOffk4YBCooCAPVL-1maOe-51zGDJ4HlVcd3Nf1W9s')]",
+            "location": "southcentralus",
+            "dependsOn": [
+                "[resourceId('Microsoft.KeyVault/vaults', parameters('vaults_ageestimation7343448364_name'))]"
+            ],
+            "properties": {
+                "attributes": {
+                    "enabled": true
+                }
+            }
+        },
+        {
+            "type": "Microsoft.KeyVault/vaults/secrets",
+            "apiVersion": "2016-10-01",
+            "name": "[concat(parameters('vaults_ageestimation7343448364_name'), '/6caae255-b419-4db0-a576-372a04c2ae69-sBD-jGyZnorPUkbgwP2GSOFttvoIIlRwt7FR8kw9aGs')]",
+            "location": "southcentralus",
+            "dependsOn": [
+                "[resourceId('Microsoft.KeyVault/vaults', parameters('vaults_ageestimation7343448364_name'))]"
+            ],
+            "properties": {
+                "attributes": {
+                    "enabled": true
+                }
+            }
+        },
+        {
+            "type": "Microsoft.KeyVault/vaults/secrets",
+            "apiVersion": "2016-10-01",
+            "name": "[concat(parameters('vaults_ageestimation7343448364_name'), '/workspace-secrets-6caae255-b419-4db0-a576-372a04c2ae69')]",
+            "location": "southcentralus",
+            "dependsOn": [
+                "[resourceId('Microsoft.KeyVault/vaults', parameters('vaults_ageestimation7343448364_name'))]"
+            ],
+            "properties": {
+                "attributes": {
+                    "enabled": true
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+            "apiVersion": "2020-03-01",
+            "name": "[concat(parameters('networkSecurityGroups_vm_nsg_name'), '/Port_8080')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_vm_nsg_name'))]"
+            ],
+            "properties": {
+                "protocol": "TCP",
+                "sourcePortRange": "*",
+                "destinationPortRange": "80",
+                "sourceAddressPrefix": "*",
+                "destinationAddressPrefix": "*",
+                "access": "Allow",
+                "priority": 310,
+                "direction": "Inbound",
+                "sourcePortRanges": [],
+                "destinationPortRanges": [],
+                "sourceAddressPrefixes": [],
+                "destinationAddressPrefixes": []
+            }
+        },
+        {
+            "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+            "apiVersion": "2020-03-01",
+            "name": "[concat(parameters('networkSecurityGroups_vm_nsg_name'), '/Port_8080s')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_vm_nsg_name'))]"
+            ],
+            "properties": {
+                "protocol": "TCP",
+                "sourcePortRange": "*",
+                "destinationPortRange": "443",
+                "sourceAddressPrefix": "*",
+                "destinationAddressPrefix": "*",
+                "access": "Allow",
+                "priority": 320,
+                "direction": "Inbound",
+                "sourcePortRanges": [],
+                "destinationPortRanges": [],
+                "sourceAddressPrefixes": [],
+                "destinationAddressPrefixes": []
+            }
+        },
+        {
+            "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+            "apiVersion": "2020-03-01",
+            "name": "[concat(parameters('networkSecurityGroups_vm_nsg_name'), '/SSH')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_vm_nsg_name'))]"
+            ],
+            "properties": {
+                "protocol": "TCP",
+                "sourcePortRange": "*",
+                "destinationPortRange": "22",
+                "sourceAddressPrefix": "*",
+                "destinationAddressPrefix": "*",
+                "access": "Allow",
+                "priority": 300,
+                "direction": "Inbound",
+                "sourcePortRanges": [],
+                "destinationPortRanges": [],
+                "sourceAddressPrefixes": [],
+                "destinationAddressPrefixes": []
+            }
+        },
+        {
+            "type": "Microsoft.Network/virtualNetworks/subnets",
+            "apiVersion": "2020-03-01",
+            "name": "[concat(parameters('virtualNetworks_Projekt_Chmury_vnet_name'), '/default')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_Projekt_Chmury_vnet_name'))]"
+            ],
+            "properties": {
+                "addressPrefix": "10.0.0.0/24",
+                "delegations": [],
+                "privateEndpointNetworkPolicies": "Enabled",
+                "privateLinkServiceNetworkPolicies": "Enabled"
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/advisors",
+            "apiVersion": "2014-04-01",
+            "name": "[concat(parameters('servers_serwerdb_name'), '/CreateIndex')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_serwerdb_name'))]"
+            ],
+            "properties": {
+                "autoExecuteValue": "Disabled"
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/advisors",
+            "apiVersion": "2014-04-01",
+            "name": "[concat(parameters('servers_serwerdb_name'), '/DbParameterization')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_serwerdb_name'))]"
+            ],
+            "properties": {
+                "autoExecuteValue": "Disabled"
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/advisors",
+            "apiVersion": "2014-04-01",
+            "name": "[concat(parameters('servers_serwerdb_name'), '/DefragmentIndex')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_serwerdb_name'))]"
+            ],
+            "properties": {
+                "autoExecuteValue": "Disabled"
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/advisors",
+            "apiVersion": "2014-04-01",
+            "name": "[concat(parameters('servers_serwerdb_name'), '/DropIndex')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_serwerdb_name'))]"
+            ],
+            "properties": {
+                "autoExecuteValue": "Disabled"
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/advisors",
+            "apiVersion": "2014-04-01",
+            "name": "[concat(parameters('servers_serwerdb_name'), '/ForceLastGoodPlan')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_serwerdb_name'))]"
+            ],
+            "properties": {
+                "autoExecuteValue": "Enabled"
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/auditingPolicies",
+            "apiVersion": "2014-04-01",
+            "name": "[concat(parameters('servers_serwerdb_name'), '/Default')]",
+            "location": "South Central US",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_serwerdb_name'))]"
+            ],
+            "properties": {
+                "auditingState": "Disabled"
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/auditingSettings",
+            "apiVersion": "2017-03-01-preview",
+            "name": "[concat(parameters('servers_serwerdb_name'), '/Default')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_serwerdb_name'))]"
+            ],
+            "properties": {
+                "state": "Disabled",
+                "retentionDays": 0,
+                "auditActionsAndGroups": [],
+                "storageAccountSubscriptionId": "00000000-0000-0000-0000-000000000000",
+                "isStorageSecondaryKeyInUse": false,
+                "isAzureMonitorTargetEnabled": false
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/databases/auditingPolicies",
+            "apiVersion": "2014-04-01",
+            "name": "[concat(parameters('servers_serwerdb_name'), '/master/Default')]",
+            "location": "South Central US",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_serwerdb_name'))]"
+            ],
+            "properties": {
+                "auditingState": "Disabled"
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/databases/auditingSettings",
+            "apiVersion": "2017-03-01-preview",
+            "name": "[concat(parameters('servers_serwerdb_name'), '/master/Default')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_serwerdb_name'))]"
+            ],
+            "properties": {
+                "state": "Disabled",
+                "retentionDays": 0,
+                "storageAccountSubscriptionId": "00000000-0000-0000-0000-000000000000",
+                "isAzureMonitorTargetEnabled": false
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/databases/extendedAuditingSettings",
+            "apiVersion": "2017-03-01-preview",
+            "name": "[concat(parameters('servers_serwerdb_name'), '/master/Default')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_serwerdb_name'))]"
+            ],
+            "properties": {
+                "state": "Disabled",
+                "retentionDays": 0,
+                "storageAccountSubscriptionId": "00000000-0000-0000-0000-000000000000",
+                "isAzureMonitorTargetEnabled": false
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/databases/geoBackupPolicies",
+            "apiVersion": "2014-04-01",
+            "name": "[concat(parameters('servers_serwerdb_name'), '/master/Default')]",
+            "location": "South Central US",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_serwerdb_name'))]"
+            ],
+            "properties": {
+                "state": "Enabled"
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/databases/securityAlertPolicies",
+            "apiVersion": "2018-06-01-preview",
+            "name": "[concat(parameters('servers_serwerdb_name'), '/master/Default')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_serwerdb_name'))]"
+            ],
+            "properties": {
+                "state": "Disabled",
+                "disabledAlerts": [
+                    ""
+                ],
+                "emailAddresses": [
+                    ""
+                ],
+                "emailAccountAdmins": false,
+                "retentionDays": 0
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/databases/transparentDataEncryption",
+            "apiVersion": "2014-04-01",
+            "name": "[concat(parameters('servers_serwerdb_name'), '/master/current')]",
+            "location": "South Central US",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_serwerdb_name'))]"
+            ],
+            "properties": {
+                "status": "Disabled"
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/databases/vulnerabilityAssessments",
+            "apiVersion": "2017-03-01-preview",
+            "name": "[concat(parameters('servers_serwerdb_name'), '/master/Default')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_serwerdb_name'))]"
+            ],
+            "properties": {
+                "recurringScans": {
+                    "isEnabled": false,
+                    "emailSubscriptionAdmins": true
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/elasticPools",
+            "apiVersion": "2017-10-01-preview",
+            "name": "[concat(parameters('servers_serwerdb_name'), '/pula')]",
+            "location": "southcentralus",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_serwerdb_name'))]"
+            ],
+            "sku": {
+                "name": "GP_Gen5",
+                "tier": "GeneralPurpose",
+                "family": "Gen5",
+                "capacity": 2
+            },
+            "kind": "vcore,pool",
+            "properties": {
+                "maxSizeBytes": 34359738368,
+                "perDatabaseSettings": {
+                    "minCapacity": 0,
+                    "maxCapacity": 2
+                },
+                "zoneRedundant": false,
+                "licenseType": "LicenseIncluded"
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/encryptionProtector",
+            "apiVersion": "2015-05-01-preview",
+            "name": "[concat(parameters('servers_serwerdb_name'), '/current')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_serwerdb_name'))]"
+            ],
+            "kind": "servicemanaged",
+            "properties": {
+                "serverKeyName": "ServiceManaged",
+                "serverKeyType": "ServiceManaged"
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/extendedAuditingSettings",
+            "apiVersion": "2017-03-01-preview",
+            "name": "[concat(parameters('servers_serwerdb_name'), '/Default')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_serwerdb_name'))]"
+            ],
+            "properties": {
+                "state": "Disabled",
+                "retentionDays": 0,
+                "auditActionsAndGroups": [],
+                "storageAccountSubscriptionId": "00000000-0000-0000-0000-000000000000",
+                "isStorageSecondaryKeyInUse": false,
+                "isAzureMonitorTargetEnabled": false
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/firewallRules",
+            "apiVersion": "2015-05-01-preview",
+            "name": "[concat(parameters('servers_serwerdb_name'), '/all')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_serwerdb_name'))]"
+            ],
+            "properties": {
+                "startIpAddress": "0.0.0.0",
+                "endIpAddress": "255.255.255.255"
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/firewallRules",
+            "apiVersion": "2015-05-01-preview",
+            "name": "[concat(parameters('servers_serwerdb_name'), '/AllowAllWindowsAzureIps')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_serwerdb_name'))]"
+            ],
+            "properties": {
+                "startIpAddress": "0.0.0.0",
+                "endIpAddress": "0.0.0.0"
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/firewallRules",
+            "apiVersion": "2015-05-01-preview",
+            "name": "[concat(parameters('servers_serwerdb_name'), '/ClientIPAddress_2020-5-23_14-17-29')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_serwerdb_name'))]"
+            ],
+            "properties": {
+                "startIpAddress": "88.156.140.184",
+                "endIpAddress": "88.156.140.184"
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/firewallRules",
+            "apiVersion": "2015-05-01-preview",
+            "name": "[concat(parameters('servers_serwerdb_name'), '/ClientIPAddress_2020-5-26_10-51-39')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_serwerdb_name'))]"
+            ],
+            "properties": {
+                "startIpAddress": "88.156.140.36",
+                "endIpAddress": "88.156.140.36"
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/firewallRules",
+            "apiVersion": "2015-05-01-preview",
+            "name": "[concat(parameters('servers_serwerdb_name'), '/ClientIPAddress_2020-5-26_12-41-56')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_serwerdb_name'))]"
+            ],
+            "properties": {
+                "startIpAddress": "89.64.2.19",
+                "endIpAddress": "89.64.2.19"
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/firewallRules",
+            "apiVersion": "2015-05-01-preview",
+            "name": "[concat(parameters('servers_serwerdb_name'), '/docker')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_serwerdb_name'))]"
+            ],
+            "properties": {
+                "startIpAddress": "52.183.217.150",
+                "endIpAddress": "52.183.217.150"
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/keys",
+            "apiVersion": "2015-05-01-preview",
+            "name": "[concat(parameters('servers_serwerdb_name'), '/ServiceManaged')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_serwerdb_name'))]"
+            ],
+            "kind": "servicemanaged",
+            "properties": {
+                "serverKeyType": "ServiceManaged"
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/securityAlertPolicies",
+            "apiVersion": "2017-03-01-preview",
+            "name": "[concat(parameters('servers_serwerdb_name'), '/Default')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_serwerdb_name'))]"
+            ],
+            "properties": {
+                "state": "Enabled",
+                "disabledAlerts": [
+                    ""
+                ],
+                "emailAddresses": [
+                    ""
+                ],
+                "emailAccountAdmins": true,
+                "retentionDays": 0
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/blobServices",
+            "apiVersion": "2019-06-01",
+            "name": "[concat(parameters('storageAccounts_ageestimation1533748507_name'), '/default')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_ageestimation1533748507_name'))]"
+            ],
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "properties": {
+                "cors": {
+                    "corsRules": [
+                        {
+                            "allowedOrigins": [
+                                "https://mlworkspace.azure.ai",
+                                "https://ml.azure.com",
+                                "https://*.ml.azure.com"
+                            ],
+                            "allowedMethods": [
+                                "GET",
+                                "HEAD"
+                            ],
+                            "maxAgeInSeconds": 1800,
+                            "exposedHeaders": [
+                                "*"
+                            ],
+                            "allowedHeaders": [
+                                "*"
+                            ]
+                        }
+                    ]
+                },
+                "deleteRetentionPolicy": {
+                    "enabled": false
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/blobServices",
+            "apiVersion": "2019-06-01",
+            "name": "[concat(parameters('storageAccounts_blobprojekt_name'), '/default')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_blobprojekt_name'))]"
+            ],
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "properties": {
+                "cors": {
+                    "corsRules": []
+                },
+                "deleteRetentionPolicy": {
+                    "enabled": false
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/blobServices",
+            "apiVersion": "2019-06-01",
+            "name": "[concat(parameters('storageAccounts_projektchmurydiag_name'), '/default')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_projektchmurydiag_name'))]"
+            ],
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "properties": {
+                "cors": {
+                    "corsRules": []
+                },
+                "deleteRetentionPolicy": {
+                    "enabled": false
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/blobServices",
+            "apiVersion": "2019-06-01",
+            "name": "[concat(parameters('storageAccounts_sqlva4r3toher7yeby_name'), '/default')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_sqlva4r3toher7yeby_name'))]"
+            ],
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "properties": {
+                "cors": {
+                    "corsRules": []
+                },
+                "deleteRetentionPolicy": {
+                    "enabled": false
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/blobServices",
+            "apiVersion": "2019-06-01",
+            "name": "[concat(parameters('storageAccounts_storageaccountproje9024_name'), '/default')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_storageaccountproje9024_name'))]"
+            ],
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "properties": {
+                "cors": {
+                    "corsRules": []
+                },
+                "deleteRetentionPolicy": {
+                    "enabled": false
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/fileServices",
+            "apiVersion": "2019-06-01",
+            "name": "[concat(parameters('storageAccounts_ageestimation1533748507_name'), '/default')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_ageestimation1533748507_name'))]"
+            ],
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "properties": {
+                "cors": {
+                    "corsRules": []
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/fileServices",
+            "apiVersion": "2019-06-01",
+            "name": "[concat(parameters('storageAccounts_projektchmurydiag_name'), '/default')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_projektchmurydiag_name'))]"
+            ],
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "properties": {
+                "cors": {
+                    "corsRules": []
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/fileServices",
+            "apiVersion": "2019-06-01",
+            "name": "[concat(parameters('storageAccounts_sqlva4r3toher7yeby_name'), '/default')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_sqlva4r3toher7yeby_name'))]"
+            ],
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "properties": {
+                "cors": {
+                    "corsRules": []
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/fileServices",
+            "apiVersion": "2019-06-01",
+            "name": "[concat(parameters('storageAccounts_storageaccountproje9024_name'), '/default')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_storageaccountproje9024_name'))]"
+            ],
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "properties": {
+                "cors": {
+                    "corsRules": []
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites",
+            "apiVersion": "2018-11-01",
+            "name": "[parameters('sites_getAgeFromPhoto_name')]",
+            "location": "Australia Central",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_ASP_ProjektChmury_9710_name'))]"
+            ],
+            "kind": "functionapp,linux",
+            "properties": {
+                "enabled": true,
+                "hostNameSslStates": [
+                    {
+                        "name": "getagefromphoto.azurewebsites.net",
+                        "sslState": "Disabled",
+                        "hostType": "Standard"
+                    },
+                    {
+                        "name": "getagefromphoto.scm.azurewebsites.net",
+                        "sslState": "Disabled",
+                        "hostType": "Repository"
+                    }
+                ],
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_ASP_ProjektChmury_9710_name'))]",
+                "reserved": true,
+                "isXenon": false,
+                "hyperV": false,
+                "siteConfig": {},
+                "scmSiteAlsoStopped": false,
+                "clientAffinityEnabled": false,
+                "clientCertEnabled": false,
+                "hostNamesDisabled": false,
+                "containerSize": 1536,
+                "dailyMemoryTimeQuota": 0,
+                "httpsOnly": false,
+                "redundancyMode": "None"
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites",
+            "apiVersion": "2018-11-01",
+            "name": "[parameters('sites_getageprojekt_name')]",
+            "location": "West US",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_ASP_ProjektChmury_8349_name'))]"
+            ],
+            "kind": "app,linux",
+            "properties": {
+                "enabled": true,
+                "hostNameSslStates": [
+                    {
+                        "name": "[concat(parameters('sites_getageprojekt_name'), '.azurewebsites.net')]",
+                        "sslState": "Disabled",
+                        "hostType": "Standard"
+                    },
+                    {
+                        "name": "[concat(parameters('sites_getageprojekt_name'), '.scm.azurewebsites.net')]",
+                        "sslState": "Disabled",
+                        "hostType": "Repository"
+                    }
+                ],
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_ASP_ProjektChmury_8349_name'))]",
+                "reserved": true,
+                "isXenon": false,
+                "hyperV": false,
+                "siteConfig": {},
+                "scmSiteAlsoStopped": false,
+                "clientAffinityEnabled": false,
+                "clientCertEnabled": false,
+                "hostNamesDisabled": false,
+                "containerSize": 0,
+                "dailyMemoryTimeQuota": 0,
+                "httpsOnly": false,
+                "redundancyMode": "None"
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/config",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_getAgeFromPhoto_name'), '/web')]",
+            "location": "Australia Central",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_getAgeFromPhoto_name'))]"
+            ],
+            "properties": {
+                "numberOfWorkers": 1,
+                "defaultDocuments": [
+                    "Default.htm",
+                    "Default.html",
+                    "Default.asp",
+                    "index.htm",
+                    "index.html",
+                    "iisstart.htm",
+                    "default.aspx",
+                    "index.php"
+                ],
+                "netFrameworkVersion": "v4.0",
+                "linuxFxVersion": "Node|12",
+                "requestTracingEnabled": false,
+                "remoteDebuggingEnabled": false,
+                "remoteDebuggingVersion": "VS2019",
+                "httpLoggingEnabled": false,
+                "logsDirectorySizeLimit": 35,
+                "detailedErrorLoggingEnabled": false,
+                "publishingUsername": "$getAgeFromPhoto",
+                "scmType": "None",
+                "use32BitWorkerProcess": true,
+                "webSocketsEnabled": false,
+                "alwaysOn": false,
+                "managedPipelineMode": "Integrated",
+                "virtualApplications": [
+                    {
+                        "virtualPath": "/",
+                        "physicalPath": "site\\wwwroot",
+                        "preloadEnabled": false
+                    }
+                ],
+                "loadBalancing": "LeastRequests",
+                "experiments": {
+                    "rampUpRules": []
+                },
+                "autoHealEnabled": false,
+                "cors": {
+                    "allowedOrigins": [
+                        "https://functions.azure.com",
+                        "https://functions-staging.azure.com",
+                        "https://functions-next.azure.com",
+                        "*",
+                        "https://getageprojekt.azurewebsites.net"
+                    ],
+                    "supportCredentials": false
+                },
+                "localMySqlEnabled": false,
+                "ipSecurityRestrictions": [
+                    {
+                        "ipAddress": "Any",
+                        "action": "Allow",
+                        "priority": 1,
+                        "name": "Allow all",
+                        "description": "Allow all access"
+                    }
+                ],
+                "scmIpSecurityRestrictions": [
+                    {
+                        "ipAddress": "Any",
+                        "action": "Allow",
+                        "priority": 1,
+                        "name": "Allow all",
+                        "description": "Allow all access"
+                    }
+                ],
+                "scmIpSecurityRestrictionsUseMain": false,
+                "http20Enabled": false,
+                "minTlsVersion": "1.2",
+                "ftpsState": "AllAllowed",
+                "reservedInstanceCount": 0
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/config",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_getageprojekt_name'), '/web')]",
+            "location": "West US",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_getageprojekt_name'))]"
+            ],
+            "properties": {
+                "numberOfWorkers": 1,
+                "defaultDocuments": [
+                    "Default.htm",
+                    "Default.html",
+                    "Default.asp",
+                    "index.htm",
+                    "index.html",
+                    "iisstart.htm",
+                    "default.aspx",
+                    "index.php",
+                    "hostingstart.html"
+                ],
+                "netFrameworkVersion": "v4.0",
+                "linuxFxVersion": "PHP|7.3",
+                "requestTracingEnabled": false,
+                "remoteDebuggingEnabled": false,
+                "httpLoggingEnabled": false,
+                "logsDirectorySizeLimit": 35,
+                "detailedErrorLoggingEnabled": false,
+                "publishingUsername": "$getageprojekt",
+                "scmType": "None",
+                "use32BitWorkerProcess": true,
+                "webSocketsEnabled": false,
+                "alwaysOn": false,
+                "managedPipelineMode": "Integrated",
+                "virtualApplications": [
+                    {
+                        "virtualPath": "/",
+                        "physicalPath": "site\\wwwroot",
+                        "preloadEnabled": false
+                    }
+                ],
+                "loadBalancing": "LeastRequests",
+                "experiments": {
+                    "rampUpRules": []
+                },
+                "autoHealEnabled": false,
+                "localMySqlEnabled": false,
+                "ipSecurityRestrictions": [
+                    {
+                        "ipAddress": "Any",
+                        "action": "Allow",
+                        "priority": 1,
+                        "name": "Allow all",
+                        "description": "Allow all access"
+                    }
+                ],
+                "scmIpSecurityRestrictions": [
+                    {
+                        "ipAddress": "Any",
+                        "action": "Allow",
+                        "priority": 1,
+                        "name": "Allow all",
+                        "description": "Allow all access"
+                    }
+                ],
+                "scmIpSecurityRestrictionsUseMain": false,
+                "http20Enabled": false,
+                "minTlsVersion": "1.2",
+                "ftpsState": "AllAllowed",
+                "reservedInstanceCount": 0
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/functions",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_getAgeFromPhoto_name'), '/HttpTrigger1')]",
+            "location": "Australia Central",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_getAgeFromPhoto_name'))]"
+            ],
+            "properties": {
+                "script_root_path_href": "https://getagefromphoto.azurewebsites.net/admin/vfs/home/site/wwwroot/HttpTrigger1/",
+                "script_href": "https://getagefromphoto.azurewebsites.net/admin/vfs/home/site/wwwroot/HttpTrigger1/index.js",
+                "config_href": "https://getagefromphoto.azurewebsites.net/admin/vfs/home/site/wwwroot/HttpTrigger1/function.json",
+                "href": "https://getagefromphoto.azurewebsites.net/admin/functions/HttpTrigger1",
+                "config": {},
+                "test_data": "{\"method\":\"post\",\"queryStringParams\":[],\"headers\":[],\"body\":\"{\\r\\n    \\\"imageUrl\\\": \\\"https://www.elle.pl/media/cache/default_view/uploads/media/default/0005/60/olej-kokosowy-na-twarz.jpeg\\\"\\r\\n}\"}"
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/hostNameBindings",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_getAgeFromPhoto_name'), '/', parameters('sites_getAgeFromPhoto_name'), '.azurewebsites.net')]",
+            "location": "Australia Central",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_getAgeFromPhoto_name'))]"
+            ],
+            "properties": {
+                "siteName": "getAgeFromPhoto",
+                "hostNameType": "Verified"
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/hostNameBindings",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_getageprojekt_name'), '/', parameters('sites_getageprojekt_name'), '.azurewebsites.net')]",
+            "location": "West US",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_getageprojekt_name'))]"
+            ],
+            "properties": {
+                "siteName": "getageprojekt",
+                "hostNameType": "Verified"
+            }
+        },
+        {
+            "type": "microsoft.alertsmanagement/smartdetectoralertrules",
+            "apiVersion": "2019-06-01",
+            "name": "[parameters('smartdetectoralertrules_failure_anomalies___ageestimation0567725205_name')]",
+            "location": "global",
+            "dependsOn": [
+                "[resourceId('microsoft.insights/components', parameters('components_ageestimation0567725205_name'))]",
+                "[resourceId('microsoft.insights/actionGroups', parameters('actionGroups_Application_Insights_Smart_Detection_name'))]"
+            ],
+            "properties": {
+                "description": "Failure Anomalies notifies you of an unusual rise in the rate of failed HTTP requests or dependency calls.",
+                "state": "Enabled",
+                "severity": "Sev3",
+                "frequency": "PT1M",
+                "detector": {
+                    "id": "FailureAnomaliesDetector",
+                    "name": "Failure Anomalies",
+                    "description": "Detects if your application experiences an abnormal rise in the rate of HTTP requests or dependency calls that are reported as failed. The anomaly detection uses machine learning algorithms and occurs in near real time, therefore there's no need to define a frequency for this signal.<br/></br/>To help you triage and diagnose the problem, an analysis of the characteristics of the failures and related telemetry is provided with the detection. This feature works for any app, hosted in the cloud or on your own servers, that generates request or dependency telemetry - for example, if you have a worker role that calls <a class=\"ext-smartDetecor-link\" href=\\\"https://docs.microsoft.com/azure/application-insights/app-insights-api-custom-events-metrics#trackrequest\\\" target=\\\"_blank\\\">TrackRequest()</a> or <a class=\"ext-smartDetecor-link\" href=\\\"https://docs.microsoft.com/azure/application-insights/app-insights-api-custom-events-metrics#trackdependency\\\" target=\\\"_blank\\\">TrackDependency()</a>.<br/><br/><a class=\"ext-smartDetecor-link\" href=\\\"https://docs.microsoft.com/azure/azure-monitor/app/proactive-failure-diagnostics\\\" target=\\\"_blank\\\">Learn more about Failure Anomalies</a>",
+                    "supportedResourceTypes": [
+                        "ApplicationInsights"
+                    ]
+                },
+                "scope": [
+                    "[resourceId('microsoft.insights/components', parameters('components_ageestimation0567725205_name'))]"
+                ],
+                "actionGroups": {
+                    "groupIds": [
+                        "[resourceId('microsoft.insights/actionGroups', parameters('actionGroups_Application_Insights_Smart_Detection_name'))]"
+                    ]
+                }
+            }
+        },
+        {
+            "type": "microsoft.alertsmanagement/smartdetectoralertrules",
+            "apiVersion": "2019-06-01",
+            "name": "[parameters('smartdetectoralertrules_failure_anomalies___getagefromphoto_name')]",
+            "location": "global",
+            "dependsOn": [
+                "[resourceId('microsoft.insights/components', parameters('components_getAgeFromPhoto_name'))]",
+                "[resourceId('microsoft.insights/actionGroups', parameters('actionGroups_Application_Insights_Smart_Detection_name'))]"
+            ],
+            "properties": {
+                "description": "Failure Anomalies notifies you of an unusual rise in the rate of failed HTTP requests or dependency calls.",
+                "state": "Enabled",
+                "severity": "Sev3",
+                "frequency": "PT1M",
+                "detector": {
+                    "id": "FailureAnomaliesDetector",
+                    "name": "Failure Anomalies",
+                    "description": "Detects if your application experiences an abnormal rise in the rate of HTTP requests or dependency calls that are reported as failed. The anomaly detection uses machine learning algorithms and occurs in near real time, therefore there's no need to define a frequency for this signal.<br/></br/>To help you triage and diagnose the problem, an analysis of the characteristics of the failures and related telemetry is provided with the detection. This feature works for any app, hosted in the cloud or on your own servers, that generates request or dependency telemetry - for example, if you have a worker role that calls <a class=\"ext-smartDetecor-link\" href=\\\"https://docs.microsoft.com/azure/application-insights/app-insights-api-custom-events-metrics#trackrequest\\\" target=\\\"_blank\\\">TrackRequest()</a> or <a class=\"ext-smartDetecor-link\" href=\\\"https://docs.microsoft.com/azure/application-insights/app-insights-api-custom-events-metrics#trackdependency\\\" target=\\\"_blank\\\">TrackDependency()</a>.<br/><br/><a class=\"ext-smartDetecor-link\" href=\\\"https://docs.microsoft.com/azure/azure-monitor/app/proactive-failure-diagnostics\\\" target=\\\"_blank\\\">Learn more about Failure Anomalies</a>",
+                    "supportedResourceTypes": [
+                        "ApplicationInsights"
+                    ]
+                },
+                "scope": [
+                    "[resourceId('microsoft.insights/components', parameters('components_getAgeFromPhoto_name'))]"
+                ],
+                "actionGroups": {
+                    "groupIds": [
+                        "[resourceId('microsoft.insights/actionGroups', parameters('actionGroups_Application_Insights_Smart_Detection_name'))]"
+                    ]
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Compute/virtualMachines",
+            "apiVersion": "2019-07-01",
+            "name": "[parameters('virtualMachines_vm_name')]",
+            "location": "southcentralus",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_vm957_name'))]",
+                "[resourceId('Microsoft.Storage/StorageAccounts', parameters('storageAccounts_projektchmurydiag_name'))]"
+            ],
+            "properties": {
+                "hardwareProfile": {
+                    "vmSize": "Standard_B1ls"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "Canonical",
+                        "offer": "UbuntuServer",
+                        "sku": "18.04-LTS",
+                        "version": "latest"
+                    },
+                    "osDisk": {
+                        "osType": "Linux",
+                        "name": "[concat(parameters('virtualMachines_vm_name'), '_disk1_700039a2a2334dc6a1a9355374c2e092')]",
+                        "createOption": "FromImage",
+                        "caching": "ReadWrite",
+                        "managedDisk": {
+                            "storageAccountType": "Premium_LRS",
+                            "id": "[resourceId('Microsoft.Compute/disks', concat(parameters('virtualMachines_vm_name'), '_disk1_700039a2a2334dc6a1a9355374c2e092'))]"
+                        },
+                        "diskSizeGB": 30
+                    },
+                    "dataDisks": []
+                },
+                "osProfile": {
+                    "computerName": "[parameters('virtualMachines_vm_name')]",
+                    "adminUsername": "projekt",
+                    "linuxConfiguration": {
+                        "disablePasswordAuthentication": false,
+                        "provisionVMAgent": true
+                    },
+                    "secrets": [],
+                    "allowExtensionOperations": true,
+                    "requireGuestProvisionSignal": true
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_vm957_name'))]"
+                        }
+                    ]
+                },
+                "diagnosticsProfile": {
+                    "bootDiagnostics": {
+                        "enabled": true,
+                        "storageUri": "[concat('https://', parameters('storageAccounts_projektchmurydiag_name'), '.blob.core.windows.net/')]"
+                    }
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/databases",
+            "apiVersion": "2019-06-01-preview",
+            "name": "[concat(parameters('servers_serwerdb_name'), '/DB')]",
+            "location": "southcentralus",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_serwerdb_name'))]",
+                "[resourceId('Microsoft.Sql/servers/elasticPools', parameters('servers_serwerdb_name'), 'pula')]"
+            ],
+            "sku": {
+                "name": "ElasticPool",
+                "tier": "GeneralPurpose",
+                "capacity": 0
+            },
+            "kind": "v12.0,user,vcore,pool",
+            "properties": {
+                "collation": "SQL_Latin1_General_CP1_CI_AS",
+                "maxSizeBytes": 34359738368,
+                "elasticPoolId": "[resourceId('Microsoft.Sql/servers/elasticPools', parameters('servers_serwerdb_name'), 'pula')]",
+                "catalogCollation": "SQL_Latin1_General_CP1_CI_AS",
+                "zoneRedundant": false,
+                "readScale": "Disabled",
+                "readReplicaCount": 0,
+                "storageAccountType": "GRS"
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/databases/advisors",
+            "apiVersion": "2014-04-01",
+            "name": "[concat(parameters('servers_serwerdb_name'), '/DB/CreateIndex')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_serwerdb_name'), 'DB')]",
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_serwerdb_name'))]"
+            ],
+            "properties": {
+                "autoExecuteValue": "Disabled"
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/databases/advisors",
+            "apiVersion": "2014-04-01",
+            "name": "[concat(parameters('servers_serwerdb_name'), '/DB/DbParameterization')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_serwerdb_name'), 'DB')]",
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_serwerdb_name'))]"
+            ],
+            "properties": {
+                "autoExecuteValue": "Disabled"
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/databases/advisors",
+            "apiVersion": "2014-04-01",
+            "name": "[concat(parameters('servers_serwerdb_name'), '/DB/DefragmentIndex')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_serwerdb_name'), 'DB')]",
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_serwerdb_name'))]"
+            ],
+            "properties": {
+                "autoExecuteValue": "Disabled"
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/databases/advisors",
+            "apiVersion": "2014-04-01",
+            "name": "[concat(parameters('servers_serwerdb_name'), '/DB/DropIndex')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_serwerdb_name'), 'DB')]",
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_serwerdb_name'))]"
+            ],
+            "properties": {
+                "autoExecuteValue": "Disabled"
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/databases/advisors",
+            "apiVersion": "2014-04-01",
+            "name": "[concat(parameters('servers_serwerdb_name'), '/DB/ForceLastGoodPlan')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_serwerdb_name'), 'DB')]",
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_serwerdb_name'))]"
+            ],
+            "properties": {
+                "autoExecuteValue": "Enabled"
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/databases/auditingPolicies",
+            "apiVersion": "2014-04-01",
+            "name": "[concat(parameters('servers_serwerdb_name'), '/DB/Default')]",
+            "location": "South Central US",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_serwerdb_name'), 'DB')]",
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_serwerdb_name'))]"
+            ],
+            "properties": {
+                "auditingState": "Disabled"
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/databases/auditingSettings",
+            "apiVersion": "2017-03-01-preview",
+            "name": "[concat(parameters('servers_serwerdb_name'), '/DB/Default')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_serwerdb_name'), 'DB')]",
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_serwerdb_name'))]"
+            ],
+            "properties": {
+                "state": "Disabled",
+                "retentionDays": 0,
+                "storageAccountSubscriptionId": "00000000-0000-0000-0000-000000000000",
+                "isAzureMonitorTargetEnabled": false
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/databases/backupLongTermRetentionPolicies",
+            "apiVersion": "2017-03-01-preview",
+            "name": "[concat(parameters('servers_serwerdb_name'), '/DB/default')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_serwerdb_name'), 'DB')]",
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_serwerdb_name'))]"
+            ],
+            "properties": {
+                "weeklyRetention": "PT0S",
+                "monthlyRetention": "PT0S",
+                "yearlyRetention": "PT0S",
+                "weekOfYear": 0
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/databases/backupShortTermRetentionPolicies",
+            "apiVersion": "2017-10-01-preview",
+            "name": "[concat(parameters('servers_serwerdb_name'), '/DB/default')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_serwerdb_name'), 'DB')]",
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_serwerdb_name'))]"
+            ],
+            "properties": {
+                "retentionDays": 7
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/databases/extendedAuditingSettings",
+            "apiVersion": "2017-03-01-preview",
+            "name": "[concat(parameters('servers_serwerdb_name'), '/DB/Default')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_serwerdb_name'), 'DB')]",
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_serwerdb_name'))]"
+            ],
+            "properties": {
+                "state": "Disabled",
+                "retentionDays": 0,
+                "storageAccountSubscriptionId": "00000000-0000-0000-0000-000000000000",
+                "isAzureMonitorTargetEnabled": false
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/databases/geoBackupPolicies",
+            "apiVersion": "2014-04-01",
+            "name": "[concat(parameters('servers_serwerdb_name'), '/DB/Default')]",
+            "location": "South Central US",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_serwerdb_name'), 'DB')]",
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_serwerdb_name'))]"
+            ],
+            "properties": {
+                "state": "Enabled"
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/databases/securityAlertPolicies",
+            "apiVersion": "2018-06-01-preview",
+            "name": "[concat(parameters('servers_serwerdb_name'), '/DB/Default')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_serwerdb_name'), 'DB')]",
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_serwerdb_name'))]"
+            ],
+            "properties": {
+                "state": "Disabled",
+                "disabledAlerts": [
+                    ""
+                ],
+                "emailAddresses": [
+                    ""
+                ],
+                "emailAccountAdmins": false,
+                "retentionDays": 0
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/databases/transparentDataEncryption",
+            "apiVersion": "2014-04-01",
+            "name": "[concat(parameters('servers_serwerdb_name'), '/DB/current')]",
+            "location": "South Central US",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_serwerdb_name'), 'DB')]",
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_serwerdb_name'))]"
+            ],
+            "properties": {
+                "status": "Enabled"
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/databases/vulnerabilityAssessments",
+            "apiVersion": "2017-03-01-preview",
+            "name": "[concat(parameters('servers_serwerdb_name'), '/DB/Default')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_serwerdb_name'), 'DB')]",
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_serwerdb_name'))]"
+            ],
+            "properties": {
+                "recurringScans": {
+                    "isEnabled": false,
+                    "emailSubscriptionAdmins": true,
+                    "emails": []
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/vulnerabilityAssessments",
+            "apiVersion": "2018-06-01-preview",
+            "name": "[concat(parameters('servers_serwerdb_name'), '/Default')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_serwerdb_name'))]",
+                "[resourceId('Microsoft.Storage/StorageAccounts', parameters('storageAccounts_sqlva4r3toher7yeby_name'))]"
+            ],
+            "properties": {
+                "storageContainerPath": "[concat('https://', parameters('storageAccounts_sqlva4r3toher7yeby_name'), '.blob.core.windows.net/vulnerability-assessment/')]",
+                "recurringScans": {
+                    "isEnabled": true,
+                    "emailSubscriptionAdmins": true,
+                    "emails": []
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+            "apiVersion": "2019-06-01",
+            "name": "[concat(parameters('storageAccounts_ageestimation1533748507_name'), '/default/azureml')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageAccounts_ageestimation1533748507_name'), 'default')]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_ageestimation1533748507_name'))]"
+            ],
+            "properties": {
+                "publicAccess": "None"
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+            "apiVersion": "2019-06-01",
+            "name": "[concat(parameters('storageAccounts_ageestimation1533748507_name'), '/default/azureml-blobstore-6caae255-b419-4db0-a576-372a04c2ae69')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageAccounts_ageestimation1533748507_name'), 'default')]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_ageestimation1533748507_name'))]"
+            ],
+            "properties": {
+                "publicAccess": "None"
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+            "apiVersion": "2019-06-01",
+            "name": "[concat(parameters('storageAccounts_storageaccountproje9024_name'), '/default/azure-webjobs-hosts')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageAccounts_storageaccountproje9024_name'), 'default')]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_storageaccountproje9024_name'))]"
+            ],
+            "properties": {
+                "publicAccess": "None"
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+            "apiVersion": "2019-06-01",
+            "name": "[concat(parameters('storageAccounts_storageaccountproje9024_name'), '/default/azure-webjobs-secrets')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageAccounts_storageaccountproje9024_name'), 'default')]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_storageaccountproje9024_name'))]"
+            ],
+            "properties": {
+                "publicAccess": "None"
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+            "apiVersion": "2019-06-01",
+            "name": "[concat(parameters('storageAccounts_projektchmurydiag_name'), '/default/bootdiagnostics-vm-82fe4d8d-4ce6-4118-ae5f-f0353b000f68')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageAccounts_projektchmurydiag_name'), 'default')]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_projektchmurydiag_name'))]"
+            ],
+            "properties": {
+                "publicAccess": "None"
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+            "apiVersion": "2019-06-01",
+            "name": "[concat(parameters('storageAccounts_blobprojekt_name'), '/default/model')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageAccounts_blobprojekt_name'), 'default')]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_blobprojekt_name'))]"
+            ],
+            "properties": {
+                "publicAccess": "Container"
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+            "apiVersion": "2019-06-01",
+            "name": "[concat(parameters('storageAccounts_sqlva4r3toher7yeby_name'), '/default/vulnerability-assessment')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageAccounts_sqlva4r3toher7yeby_name'), 'default')]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_sqlva4r3toher7yeby_name'))]"
+            ],
+            "properties": {
+                "publicAccess": "None"
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+            "apiVersion": "2019-06-01",
+            "name": "[concat(parameters('storageAccounts_blobprojekt_name'), '/default/zdjecia')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageAccounts_blobprojekt_name'), 'default')]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_blobprojekt_name'))]"
+            ],
+            "properties": {
+                "publicAccess": "Container"
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/fileServices/shares",
+            "apiVersion": "2019-06-01",
+            "name": "[concat(parameters('storageAccounts_ageestimation1533748507_name'), '/default/azureml-filestore-6caae255-b419-4db0-a576-372a04c2ae69')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts/fileServices', parameters('storageAccounts_ageestimation1533748507_name'), 'default')]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_ageestimation1533748507_name'))]"
+            ],
+            "properties": {
+                "shareQuota": 5120
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/fileServices/shares",
+            "apiVersion": "2019-06-01",
+            "name": "[concat(parameters('storageAccounts_ageestimation1533748507_name'), '/default/code-391ff5ac-6576-460f-ba4d-7e03433c68b6')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts/fileServices', parameters('storageAccounts_ageestimation1533748507_name'), 'default')]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_ageestimation1533748507_name'))]"
+            ],
+            "properties": {
+                "shareQuota": 5120
+            }
+        },
+        {
+            "type": "Microsoft.Network/networkInterfaces",
+            "apiVersion": "2020-03-01",
+            "name": "[parameters('networkInterfaces_vm957_name')]",
+            "location": "southcentralus",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_vm_ip_name'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_Projekt_Chmury_vnet_name'), 'default')]",
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_vm_nsg_name'))]"
+            ],
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "properties": {
+                            "privateIPAddress": "10.0.0.4",
+                            "privateIPAllocationMethod": "Dynamic",
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_vm_ip_name'))]"
+                            },
+                            "subnet": {
+                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_Projekt_Chmury_vnet_name'), 'default')]"
+                            },
+                            "primary": true,
+                            "privateIPAddressVersion": "IPv4"
+                        }
+                    }
+                ],
+                "dnsSettings": {
+                    "dnsServers": []
+                },
+                "enableAcceleratedNetworking": false,
+                "enableIPForwarding": false,
+                "networkSecurityGroup": {
+                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_vm_nsg_name'))]"
+                }
+            }
+        }
+    ]
+}
