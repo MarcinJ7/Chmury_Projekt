@@ -99,7 +99,7 @@ Innym sprawdzanym rozwiązaniem było użycie modelu InceptionV3 (załadowanie m
 
 ### Wytrenowany model
 
-Link do modelu: https://drive.google.com/drive/folders/1Dr8UX2PS-iZbj1CPeX1rJfHnYGnkejGI
+Link do modelu: https://drive.google.com/drive/folders/1Dr8UX2PS-iZbj1CPeX1rJfHnYGnkejGI?usp=sharing
 
 Struktura sieci znajduje się w pliku JSON, a wagi w pliku h5. Model należy umieści w konterze razem z zawartoscią folderu DockerInstance.
 
@@ -125,7 +125,7 @@ cURL PHP do przesyłania obrazów do blob storage. Pliki strony na maszyynie wir
 
 ## Template grupy zasobów
 
-znajduje się w pliku ExportedTemplate-Projekt_Chmury.zip
+Pliki znajdują się w folderze Azure_Template.
 
 ## Zadania
 
