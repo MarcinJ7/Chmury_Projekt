@@ -118,6 +118,11 @@ https://colab.research.google.com/drive/1rPGtVji4odywJwv0ufEYi2BS-GPq7x-F?fbclid
 - Pandas 1.0.3
 - matplotlib 3.2.1
 
+## Strona internetowa
+
+Pierwotnie strona internetowa została postawiona na maszynie wirtualnej, na której zainstalowano Apache, PHP oraz 
+cURL PHP do przesyłania obrazów do blob storage. Pliki strony na maszyynie wirtualnej znajduja sie w folderze www/html, w tym folderze należy umieścić je na maszynie wirtualnej w katalogu root ("/"). Następnie postawiono Web app, w którym zaimplementowano skrypt w JavaScripcie do przesyłania zdjęcia do modelua jak również zwracania wyniku na strone. Wieka cześc kodu strony w Web app została wykorzystana ze strony znajadującej sie na maszynie wirtualnej
+
 ## Template grupy zasobów
 
 znajduje się w pliku ExportedTemplate-Projekt_Chmury.zip
@@ -138,5 +143,4 @@ Zrobione:
 *  utworzenie nowego AD, grupy zasobów i przypisanie uprawnień - Malwina
 *  utworzenie strony internetowej - Marek
 *  połączenie aplikacji w Function App - Magda
-*  logowanie przez Azure AD - Marek
 *  uruchamianie Azure Databricks (lub innego serwisu) w celu określenia wieku - Edward + Magda
