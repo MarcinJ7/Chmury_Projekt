@@ -103,11 +103,11 @@ Link do modelu: https://drive.google.com/drive/folders/1Dr8UX2PS-iZbj1CPeX1rJfHn
 
 Struktura sieci znajduje się w pliku JSON, a wagi w pliku h5. Model należy umieści w konterze razem z zawartoscią folderu DockerInstance.
 
-### Colab
+### Pierwsze próby stworzenia modelu
 
-Notatnik w Colabie (pierwsza wersja kodu, niestety dataset był zbyt duży aby wytrenować model 
-w Colabie):
-https://colab.research.google.com/drive/1rPGtVji4odywJwv0ufEYi2BS-GPq7x-F?fbclid=IwAR32i5pVgd4cqhmMFU7KR-PjpRFOOyPKMrO7Oo8IVF1uD9cWK_oLN7XJ2As#scrollTo=ee0p1L0DpzXs
+Pierwsze próby stworzenia własnego modelu sieci neuronowej zostały przedstawione w pliku 
+Chmury_Projekt/NN_Model/old/first_attempt.ipynb 
+
 
 ### Biblioteki
 
